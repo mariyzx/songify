@@ -37,8 +37,10 @@ describe('Home >', () => {
     render(<WrappedApp />);
     // ACT
     const email = screen.getByLabelText('Email:');
+    const pass = screen.getByLabelText('Password:');
     const button = screen.getByRole('button', { name: 'Login' });
     userEvent.type(email, 'invalid@email');
+    userEvent.type(pass, 'password12');
     // EXPECT
     expect(email).toBeInTheDocument();
     expect(button).toBeDisabled();
