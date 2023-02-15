@@ -45,4 +45,18 @@ describe('Home >', () => {
     expect(email).toBeInTheDocument();
     expect(button).toBeDisabled();
   });
+
+  it('Cant login with invalid password', () => {
+    // ARRANGE
+    render(<WrappedApp />);
+    // ACT
+    const email = screen.getByLabelText('Email:');
+    const pass = screen.getByLabelText('Password:');
+    const button = screen.getByRole('button', { name: 'Login' });
+    userEvent.type(email, 'adalovelace@email.com');
+    userEvent.type(pass, 'inval');
+    // EXPECT
+    expect(pass).toBeInTheDocument();
+    expect(button).toBeDisabled();
+  });
 });
