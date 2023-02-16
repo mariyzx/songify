@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { IValue } from '../interfaces/IForm';
+import { useNavigate } from 'react-router-dom';
+
 
 function Form() {
   const [disabled, setDisabled] = useState(true);
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
+  const navigate = useNavigate();
 
   const validateEmail = (em: string) => {
     setEmail(em);
@@ -58,7 +61,7 @@ function Form() {
           onChange={({ target }) => handleChange(target)}
         />
       </label>
-      <button type="submit" disabled={disabled}>
+      <button type="submit" disabled={disabled} onClick={() => navigate('/search')}>
         Login
       </button>
     </form>
