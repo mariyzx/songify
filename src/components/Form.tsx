@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 function Form() {
   const [disabled, setDisabled] = useState(true);
   const [email, setEmail] = useState('');
-  const [pass, setPass] = useState('');
+  const [name, setName] = useState('');
   const navigate = useNavigate();
 
   const validateEmail = (em: string) => {
@@ -15,16 +15,16 @@ function Form() {
       /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi;
     const isEmailValid = regex.test(em);
 
-    if (isEmailValid && em.length > 8 && pass.length > 8) {
+    if (isEmailValid && em.length > 8 && name.length > 2) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
   };
 
-  const validatePass = (password: string) => {
-    setPass(password);
-    if (password.length > 8) {
+  const validateName = (name: string) => {
+    setName(name);
+    if (name.length > 2) {
       setDisabled(false);
     } else {
       setDisabled(true);
@@ -35,7 +35,7 @@ function Form() {
     if (target.name === 'email') {
       validateEmail(target.value);
     } else {
-      validatePass(target.value);
+      validateName(target.value);
     }
   };
 
@@ -51,13 +51,13 @@ function Form() {
           onChange={({ target }) => handleChange(target)}
         />
       </label>
-      <label htmlFor="password">
-        Password:
+      <label htmlFor="name">
+        Name:
         <input
-          type="password"
-          name="password"
-          id="password"
-          value={pass}
+          type="text"
+          name="name"
+          id="name"
+          value={name}
           onChange={({ target }) => handleChange(target)}
         />
       </label>
