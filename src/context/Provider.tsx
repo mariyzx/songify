@@ -14,6 +14,7 @@ function Provider({ children }: never) {
   const [user, setUser] = useState<ICreatedUser>(emptyUser);
   const [loading, setLoading] = useState(false);
   const [albums, setAlbums] = useState([]);
+  const [artistName, setArtistName] = useState('');
 
   const createUser = (data: IUser): ICreatedUser => {
     const info = { ...emptyUser, ...data };
@@ -25,6 +26,7 @@ function Provider({ children }: never) {
   const getAlbums = async (artist: string) => {
     try {
       setLoading(true);
+      setArtistName(artist);
       const response = await searchAlbumsAPI(artist);
       setAlbums(response);
       setLoading(false);
@@ -39,6 +41,7 @@ function Provider({ children }: never) {
     getAlbums,
     albums,
     loading,
+    artistName,
   };
 
   return <Context.Provider value={contextValue}>{children}</Context.Provider>;
