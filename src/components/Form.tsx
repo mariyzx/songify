@@ -1,14 +1,16 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { IValue } from '../interfaces/IForm';
 import { useNavigate } from 'react-router-dom';
-import { createUser } from '../services/userAPI';
+import Context from '../context/Context';
 
 
 function Form() {
   const [disabled, setDisabled] = useState(true);
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { createUser } = useContext(Context);
 
   const validateEmail = (em: string) => {
     setEmail(em);
@@ -41,7 +43,9 @@ function Form() {
   };
 
   const handleLogin = () => {
+    setLoading(true);
     createUser({name, email});
+    setLoading(false);
     navigate('/search');
   }
 
@@ -70,6 +74,7 @@ function Form() {
       <button type="submit" disabled={disabled} onClick={() => handleLogin()}>
         Login
       </button>
+      { loading && <p>Carregando...</p>}
     </form>
   );
 }
