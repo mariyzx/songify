@@ -1,8 +1,13 @@
 const Search = () => {
   return (
-    <div>
-      Search
-    </div>
+    <form>
+      <label htmlFor="search">
+        <input type="text" name="search" id="search" placeholder="Artist or album.." />
+      </label>
+      <button type="button">
+        Search
+      </button>
+    </form>
   )
 }
 
