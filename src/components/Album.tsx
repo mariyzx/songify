@@ -1,7 +1,5 @@
-const Album = () => {
-  return (
-    <div>Album</div>
-  )
+function Album() {
+  return <div>Album</div>;
 }
 
 export default Album;

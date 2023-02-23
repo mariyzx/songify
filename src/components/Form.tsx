@@ -1,8 +1,7 @@
 import { useContext, useState } from 'react';
-import { IValue } from '../interfaces/IForm';
 import { useNavigate } from 'react-router-dom';
+import { IValue } from '../interfaces/IForm';
 import Context from '../context/Context';
-
 
 function Form() {
   const [disabled, setDisabled] = useState(true);
@@ -25,9 +24,9 @@ function Form() {
     }
   };
 
-  const validateName = (name: string) => {
-    setName(name);
-    if (name.length > 2) {
+  const validateName = (nameInput: string) => {
+    setName(nameInput);
+    if (nameInput.length > 2) {
       setDisabled(false);
     } else {
       setDisabled(true);
@@ -44,10 +43,10 @@ function Form() {
 
   const handleLogin = () => {
     setLoading(true);
-    createUser({name, email});
+    createUser({ name, email });
     setLoading(false);
     navigate('/search');
-  }
+  };
 
   return (
     <form>
@@ -74,7 +73,7 @@ function Form() {
       <button type="submit" disabled={disabled} onClick={() => handleLogin()}>
         Login
       </button>
-      { loading && <p>Carregando...</p>}
+      {loading && <p>Carregando...</p>}
     </form>
   );
 }
