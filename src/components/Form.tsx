@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { IValue } from '../interfaces/IForm';
 import { useNavigate } from 'react-router-dom';
+import { createUser } from '../services/userAPI';
 
 
 function Form() {
@@ -39,6 +40,11 @@ function Form() {
     }
   };
 
+  const handleLogin = () => {
+    createUser({name, email});
+    navigate('/search');
+  }
+
   return (
     <form>
       <label htmlFor="email">
@@ -61,7 +67,7 @@ function Form() {
           onChange={({ target }) => handleChange(target)}
         />
       </label>
-      <button type="submit" disabled={disabled} onClick={() => navigate('/search')}>
+      <button type="submit" disabled={disabled} onClick={() => handleLogin()}>
         Login
       </button>
     </form>
