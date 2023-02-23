@@ -14,15 +14,15 @@ describe('Home >', () => {
     expect(title).toHaveTextContent('Songify!');
   });
 
-  it('Renders email and password input', () => {
+  it('Renders email and name input', () => {
     // ARRANGE
     render(<WrappedApp />);
     // ACT
     const email = screen.getByLabelText('Email:');
-    const pass = screen.getByLabelText('Password:');
+    const name = screen.getByLabelText('Name:');
     // EXPECT
     expect(email).toBeInTheDocument();
-    expect(pass).toBeInTheDocument();
+    expect(name).toBeInTheDocument();
   });
 
   it('Renders a login button', () => {
@@ -37,26 +37,26 @@ describe('Home >', () => {
     render(<WrappedApp />);
     // ACT
     const email = screen.getByLabelText('Email:');
-    const pass = screen.getByLabelText('Password:');
+    const name = screen.getByLabelText('Name:');
     const button = screen.getByRole('button', { name: 'Login' });
     userEvent.type(email, 'invalid@email');
-    userEvent.type(pass, 'password12');
+    userEvent.type(name, 'password12');
     // EXPECT
     expect(email).toBeInTheDocument();
     expect(button).toBeDisabled();
   });
 
-  it('Cant login with invalid password', () => {
+  it('Cant login with invalid name', () => {
     // ARRANGE
     render(<WrappedApp />);
     // ACT
     const email = screen.getByLabelText('Email:');
-    const pass = screen.getByLabelText('Password:');
+    const name = screen.getByLabelText('Name:');
     const button = screen.getByRole('button', { name: 'Login' });
     userEvent.type(email, 'adalovelace@email.com');
-    userEvent.type(pass, 'inval');
+    userEvent.type(name, 'inval');
     // EXPECT
-    expect(pass).toBeInTheDocument();
+    expect(name).toBeInTheDocument();
     expect(button).toBeDisabled();
   });
 });
