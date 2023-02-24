@@ -1,10 +1,16 @@
-import { describe, it } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { describe, it, vi } from 'vitest';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { WrappedApp } from '../../src/App';
 
 describe('Home >', () => {
+  const setItemSpy = vi.spyOn(Storage.prototype, 'setItem');
+
+  afterEach(() => {
+    setItemSpy.mockClear();
+  });
+
   it('Renders title', () => {
     // ARRANGE
     render(<WrappedApp />);
@@ -40,7 +46,7 @@ describe('Home >', () => {
     const name = screen.getByLabelText('Name:');
     const button = screen.getByRole('button', { name: 'Login' });
     userEvent.type(email, 'invalid@email');
-    userEvent.type(name, 'password12');
+    userEvent.type(name, 'ada');
     // EXPECT
     expect(email).toBeInTheDocument();
     expect(button).toBeDisabled();
@@ -58,5 +64,30 @@ describe('Home >', () => {
     // EXPECT
     expect(name).toBeInTheDocument();
     expect(button).toBeDisabled();
+  });
+
+  it('Email and name are saved on button click', async () => {
+    // ARRANGE
+    render(<WrappedApp />);
+    // ACT
+    const email = screen.getByLabelText('Email:');
+    const name = screen.getByLabelText('Name:');
+    const button = screen.getByRole('button', { name: 'Login' });
+    userEvent.type(email, 'adalovelace@email.com');
+    userEvent.type(name, 'Ada');
+    // EXPECT
+    await waitFor(() => expect(button).not.toBeDisabled());
+    userEvent.click(button);
+
+    const data = {
+      name: 'Ada',
+      email: 'adalovelace@email.com',
+      image: '',
+      description: '',
+    };
+
+    localStorage.setItem('user', JSON.stringify(data));
+
+    await waitFor(() => expect(setItemSpy).toHaveBeenCalled());
   });
 });
