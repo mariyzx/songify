@@ -25,7 +25,7 @@ function Album() {
       {loading ? (
         <p>Carregando...</p>
       ) : (
-        tracks.map((song) => <SongsCard song={song} key={song.collectionId} />)
+        tracks.map((song) => <SongsCard song={song} key={song.trackId} />)
       )}
     </div>
   );
