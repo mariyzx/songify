@@ -9,6 +9,9 @@ function SongsCard(props: IProps) {
         <track kind="caption" />
         Your browser doesn&apos;t support the element! <code>audio</code>
       </audio>
+      <label htmlFor="favorite">
+        <input type="checkbox" name="favorite" />
+      </label>
     </div>
   );
 }
