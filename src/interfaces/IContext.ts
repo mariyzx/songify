@@ -1,4 +1,5 @@
 import { IAlbum } from './IAlbum';
+import { ITrack } from './ISongs';
 import { IUser, ICreatedUser } from './IUser';
 
 export interface IContext {
@@ -8,4 +9,6 @@ export interface IContext {
   albums: Array<IAlbum>;
   getAlbums(artist: string): void;
   artistName: string;
+  getSongs(album: string): void;
+  songs: Array<ITrack>;
 }
