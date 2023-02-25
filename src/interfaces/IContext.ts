@@ -11,4 +11,6 @@ export interface IContext {
   artistName: string;
   getSongs(album: string): void;
   songs: Array<ITrack>;
+  addToFav(song: object): void;
+  removeToFav(song: object): void;
 }
