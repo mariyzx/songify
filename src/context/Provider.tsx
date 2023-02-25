@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Context from './Context';
 import { ICreatedUser, IUser } from '../interfaces/IUser';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
+import getMusics from '../services/searchSongsAPI';
 
 function Provider({ children }: never) {
   const emptyUser = {
@@ -15,6 +16,7 @@ function Provider({ children }: never) {
   const [loading, setLoading] = useState(false);
   const [albums, setAlbums] = useState([]);
   const [artistName, setArtistName] = useState('');
+  const [songs, setSongs] = useState([]);
 
   const createUser = (data: IUser): ICreatedUser => {
     const info = { ...emptyUser, ...data };
@@ -35,6 +37,17 @@ function Provider({ children }: never) {
     }
   };
 
+  const getSongs = async (album: string) => {
+    try {
+      setLoading(true);
+      const response = await getMusics(album);
+      setSongs(response);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const contextValue = {
     createUser,
     user,
@@ -42,6 +55,8 @@ function Provider({ children }: never) {
     albums,
     loading,
     artistName,
+    getSongs,
+    songs,
   };
 
   return <Context.Provider value={contextValue}>{children}</Context.Provider>;
