@@ -24,5 +24,9 @@ module.exports = {
     'import/no-extraneous-dependencies': 0,
     'react/jsx-no-constructed-context-values': 0,
     'no-console': 0,
+    '@typescript-eslint/no-non-null-assertion': 0,
+    'react-hooks/exhaustive-deps': 0,
+    'react/jsx-key': 0,
+    'jsx-a11y/media-has-caption': 0,
   },
 };
