@@ -10,7 +10,7 @@ function ListAlbums() {
         <div>
           <h3>Result of albums of: {artistName}</h3>
           {albums.map((album) => (
-            <div key={album.artistId}>
+            <div>
               <img src={album.artworkUrl100} alt={album.collectionName} />
               <h3>{album.collectionName}</h3>
               <p>{album.releaseDate.substring(0, 4)}</p>
