@@ -86,6 +86,16 @@ function Provider({ children }: never) {
     }
   };
 
+  const getFavs = () => {
+    try {
+      setLoading(true);
+      setFavSongs(favs);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const contextValue = {
     createUser,
     user,
@@ -98,6 +108,7 @@ function Provider({ children }: never) {
     addToFav,
     removeToFav,
     favSongs,
+    getFavs,
   };
 
   return <Context.Provider value={contextValue}>{children}</Context.Provider>;
