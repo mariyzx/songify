@@ -1,4 +1,5 @@
 import { useContext, useEffect } from 'react';
+import Header from '../components/Header';
 import ListFavs from '../components/ListFavs';
 import Context from '../context/Context';
 
@@ -11,6 +12,7 @@ function Favorites() {
 
   return (
     <div>
+      <Header />
       <h1>Favorites</h1>
       {!loading &&
         favSongs.map((fav) => <ListFavs song={fav} key={fav.previewUrl} />)}
