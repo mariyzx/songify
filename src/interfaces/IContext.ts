@@ -8,6 +8,7 @@ export interface IContext {
   user: ICreatedUser;
   loading: boolean;
   albums: Array<IAlbum>;
+  empty: boolean;
   getAlbums(artist: string): void;
   artistName: string;
   getSongs(album: string): void;
