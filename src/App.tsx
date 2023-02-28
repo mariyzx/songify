@@ -1,7 +1,7 @@
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import Album from './components/Album';
 import Favorites from './pages/Favorites';
-import Profile from './components/Profile';
+import Profile from './pages/Profile';
 import ProfileEdit from './components/ProfileEdit';
 import Search from './pages/Search';
 import Home from './pages/Home';
