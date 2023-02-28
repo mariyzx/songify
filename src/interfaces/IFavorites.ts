@@ -4,3 +4,7 @@ export interface IFavorite {
   previewUrl: string;
   trackName: string;
 }
+
+export interface IFavoriteProps {
+  song: IFavorite;
+}
