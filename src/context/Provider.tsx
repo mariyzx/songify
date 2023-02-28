@@ -18,6 +18,7 @@ function Provider({ children }: never) {
 
   const [user, setUser] = useState<ICreatedUser>(emptyUser);
   const [loading, setLoading] = useState(false);
+  const [empty, setEmpty] = useState(false);
   const [albums, setAlbums] = useState([]);
   const [artistName, setArtistName] = useState('');
   const [songs, setSongs] = useState([]);
@@ -36,6 +37,9 @@ function Provider({ children }: never) {
       setLoading(true);
       setArtistName(artist);
       const response = await searchAlbumsAPI(artist);
+      if (response.length === 0) {
+        setEmpty(true);
+      }
       setAlbums(response);
       setLoading(false);
     } catch (err) {
@@ -100,6 +104,7 @@ function Provider({ children }: never) {
     createUser,
     user,
     getAlbums,
+    empty,
     albums,
     loading,
     artistName,
