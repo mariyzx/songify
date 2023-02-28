@@ -1,10 +1,23 @@
-import { useContext } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
-import Context from '../context/Context';
+import { ICreatedUser } from '../interfaces/IUser';
 
 function Profile() {
-  const { user } = useContext(Context);
+  const emptyUser = {
+    name: '',
+    email: '',
+    image: '',
+    description: '',
+  };
+
+  const [user, setUser] = useState<ICreatedUser>(emptyUser);
+
+  useEffect(() => {
+    const local = JSON.parse(localStorage.getItem('user')!);
+    setUser(local);
+  }, []);
+
   return (
     <div>
       <Header />
