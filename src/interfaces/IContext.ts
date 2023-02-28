@@ -1,4 +1,5 @@
 import { IAlbum } from './IAlbum';
+import { IFavorite } from './IFavorites';
 import { ITrack } from './ISongs';
 import { IUser, ICreatedUser } from './IUser';
 
@@ -13,4 +14,6 @@ export interface IContext {
   songs: Array<ITrack>;
   addToFav(song: object): void;
   removeToFav(song: object): void;
+  favSongs: Array<IFavorite>;
+  getFavs(): void;
 }
