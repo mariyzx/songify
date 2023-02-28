@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import Context from '../context/Context';
 
 function ListAlbums() {
-  const { albums, artistName } = useContext(Context);
+  const { albums, artistName, empty } = useContext(Context);
   return (
     <div>
-      {albums.length > 0 ? (
+      {!empty ? (
         <div>
           <h3>Result of albums of: {artistName}</h3>
           {albums.map((album) => (
