@@ -1,14 +1,10 @@
-import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import Context from '../context/Context';
 
 function Header() {
-  const { user } = useContext(Context);
-
   return (
     <div>
       <header>
-        <h3>{user.name}</h3>
+        <h3>Songify!</h3>
         <nav>
           <Link to="/search">Search</Link>
           <Link to="/favorites">Favorites</Link>
