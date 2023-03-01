@@ -1,4 +1,6 @@
+import { ThemeProvider } from 'styled-components';
 import { HashRouter, Route, Routes } from 'react-router-dom';
+import { useContext } from 'react';
 import Album from './components/Album';
 import Favorites from './pages/Favorites';
 import Profile from './pages/Profile';
@@ -6,6 +8,8 @@ import ProfileEdit from './components/ProfileEdit';
 import Search from './pages/Search';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
+import GlobalStyle from './styles/globalStyles';
+import Context from './context/Context';
 
 export function App() {
   return (
@@ -22,9 +26,14 @@ export function App() {
 }
 
 export function WrappedApp() {
+  const { theme } = useContext(Context);
+
   return (
     <HashRouter>
-      <App />
+      <ThemeProvider theme={theme}>
+        <App />
+        <GlobalStyle />
+      </ThemeProvider>
     </HashRouter>
   );
 }

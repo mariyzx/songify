@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { DefaultTheme } from 'styled-components';
 import Context from './Context';
 import { ICreatedUser, IUser } from '../interfaces/IUser';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
@@ -6,6 +7,9 @@ import getMusics from '../services/searchSongsAPI';
 import addToLocal from '../services/favoriteSongsAPI';
 import { ITrack } from '../interfaces/ISongs';
 import { IFavorite } from '../interfaces/IFavorites';
+import light from '../styles/themes/light';
+import dark from '../styles/themes/dark';
+import usePersistedState from '../utils/usePersistedState';
 
 function Provider({ children }: never) {
   const emptyUser = {
@@ -16,6 +20,7 @@ function Provider({ children }: never) {
   };
   const favs = JSON.parse(localStorage.getItem('favorite_songs')!);
 
+  const [theme, setTheme] = usePersistedState<DefaultTheme>('theme', light);
   const [user, setUser] = useState<ICreatedUser>(emptyUser);
   const [loading, setLoading] = useState(false);
   const [empty, setEmpty] = useState(false);
@@ -23,6 +28,10 @@ function Provider({ children }: never) {
   const [artistName, setArtistName] = useState('');
   const [songs, setSongs] = useState([]);
   const [favSongs, setFavSongs] = useState<IFavorite[]>([]);
+
+  const toggleTheme = () => {
+    setTheme(theme.title === 'light' ? dark : light);
+  };
 
   const createUser = (data: IUser): ICreatedUser => {
     const info = { ...emptyUser, ...data };
@@ -101,6 +110,8 @@ function Provider({ children }: never) {
   };
 
   const contextValue = {
+    toggleTheme,
+    theme,
     createUser,
     user,
     getAlbums,

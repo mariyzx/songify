@@ -1,9 +1,12 @@
+import { DefaultTheme } from 'styled-components';
 import { IAlbum } from './IAlbum';
 import { IFavorite } from './IFavorites';
 import { ITrack } from './ISongs';
 import { IUser, ICreatedUser } from './IUser';
 
 export interface IContext {
+  toggleTheme(): void;
+  theme: DefaultTheme;
   createUser(data: IUser): ICreatedUser;
   user: ICreatedUser;
   loading: boolean;

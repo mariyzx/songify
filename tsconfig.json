@@ -17,5 +17,6 @@
     "jsx": "react-jsx"
   },
   "include": ["src/setup.ts", "vitest.config.ts", "vite.config.ts", ".eslintrc.cjs", "src", "tests"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [{ "path": "./tsconfig.node.json" }],
+  "files": ["src/styles/styled.d.ts"]
 }
