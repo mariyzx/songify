@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IValue } from '../interfaces/IForm';
 import Context from '../context/Context';
+import HomeForm from '../styles/components/Form';
 
 function Form() {
   const [disabled, setDisabled] = useState(true);
@@ -49,9 +50,9 @@ function Form() {
   };
 
   return (
-    <form>
+    <HomeForm>
       <label htmlFor="email">
-        Email:
+        Email
         <input
           type="email"
           name="email"
@@ -61,7 +62,7 @@ function Form() {
         />
       </label>
       <label htmlFor="name">
-        Name:
+        Name
         <input
           type="text"
           name="name"
@@ -74,7 +75,7 @@ function Form() {
         Login
       </button>
       {loading && <p>Carregando...</p>}
-    </form>
+    </HomeForm>
   );
 }
 
