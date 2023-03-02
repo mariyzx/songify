@@ -29,7 +29,7 @@ function SongsCard(props: IProps) {
   }, [fav]);
 
   return (
-    <div>
+    <div data-testid="songs">
       <h4>{song.trackName}</h4>
       <audio src={song.previewUrl} controls>
         <track kind="caption" />

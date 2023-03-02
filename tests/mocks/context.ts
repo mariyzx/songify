@@ -6,7 +6,7 @@ import { IUser, ICreatedUser } from '../../src/interfaces/IUser';
 import light from '../../src/styles/themes/light';
 import albumMock from './albums';
 import favoriteMock from './favorite';
-import songsMock from './songs';
+import { songsMock } from './songs';
 import mockUser from './user';
 
 export interface IContext {
