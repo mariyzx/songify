@@ -1,5 +1,3 @@
-import { IAlbum } from '../../src/interfaces/IAlbum';
-
 const albumMock = [
   {
     wrapperType: 'collection',
