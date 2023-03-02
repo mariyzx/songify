@@ -48,6 +48,8 @@ function Provider({ children }: never) {
       const response = await searchAlbumsAPI(artist);
       if (response.length === 0) {
         setEmpty(true);
+      } else {
+        setEmpty(false);
       }
       setAlbums(response);
       setLoading(false);
