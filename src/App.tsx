@@ -1,7 +1,7 @@
 import { ThemeProvider } from 'styled-components';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import { useContext } from 'react';
-import Album from './components/Album';
+import Album from './pages/Album';
 import Favorites from './pages/Favorites';
 import Profile from './pages/Profile';
 import ProfileEdit from './components/ProfileEdit';

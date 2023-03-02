@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Context from '../context/Context';
-import SongsCard from './SongsCard';
+import SongsCard from '../components/SongsCard';
 
 function Album() {
   const { songs, getSongs, artistName, loading } = useContext(Context);
