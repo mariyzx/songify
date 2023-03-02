@@ -1,5 +1,5 @@
-import { createContext } from "react";
-import { IContext } from "../interfaces/IContext";
+import { createContext } from 'react';
+import { IContext } from '../interfaces/IContext';
 
 const Context = createContext<IContext>({} as IContext);
 
