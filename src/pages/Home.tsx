@@ -28,8 +28,11 @@ function Home() {
         />
       </Switch>
       <img src={songify} alt="songify" />
-      <h1>Songify!</h1>
-      <Form />
+      <hr />
+      <div>
+        <h1>Songify!</h1>
+        <Form />
+      </div>
     </MainHome>
   );
 }

@@ -12,7 +12,7 @@ const HomeForm = styled.form`
   label {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 100%;
     margin: 1px;
   }
 
@@ -37,7 +37,7 @@ const HomeForm = styled.form`
   }
 
   button {
-    width: 30%;
+    width: 60%;
     height: 35px;
     background-color: ${(props) => props.theme.colors.secondary};
     color: #e1e1e1;

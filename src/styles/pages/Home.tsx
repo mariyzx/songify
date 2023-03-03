@@ -4,6 +4,19 @@ const MainHome = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
+  text-align: center;
+  gap: 5rem;
+
+  img {
+    width: 40%;
+  }
+
+  hr {
+    height: 200px;
+    border-left: 5px solid ${(props) => props.theme.colors.secondary};
+    border-radius: 20%;
+  }
 
   // MOBILE FIRST: 320px - 480px;
   // https://www.emailonacid.com/blog/article/email-development/emailology_media_queries_demystified_min-width_and_max-width/
