@@ -2,6 +2,7 @@ import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Context from '../context/Context';
 import SongsCard from '../components/SongsCard';
+import Header from '../components/Header';
 
 function Album() {
   const { songs, getSongs, artistName, loading } = useContext(Context);
@@ -15,6 +16,7 @@ function Album() {
 
   return (
     <div>
+      <Header />
       {songs.length > 0 && (
         <div>
           <h2>{info.collectionName}</h2>
