@@ -18,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
     min-width: 100%;
     overflow: hidden;
     font-family: 'Poppins', sans-serif;
-    background: ${(props) => props.theme.colors.primary};
+    background: ${(props) => props.theme.colors.background};
     color: ${(props) => props.theme.colors.text};
   }
 `;
