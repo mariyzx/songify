@@ -35,7 +35,7 @@ function SongsCard(props: IProps) {
         <track kind="caption" />
         Your browser doesn&apos;t support the element! <code>audio</code>
       </audio>
-      <label htmlFor="favorite">
+      <label htmlFor="favorite" data-testid="fav_input">
         <input
           type="checkbox"
           name="favorite"
