@@ -49,6 +49,7 @@ const HomeForm = styled.form`
     height: 35px;
     background-color: ${(props) => props.theme.colors.secondary};
     color: #e1e1e1;
+    border: 2px solid transparent;
     border-radius: 10px;
     font-weight: 700;
     box-shadow: 0 5px 5px ${(props) => shade(0.1, props.theme.colors.primary)};
