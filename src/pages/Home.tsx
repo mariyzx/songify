@@ -7,6 +7,7 @@ import MainHome from '../styles/pages/Home';
 import songify from '../assets/songify.svg';
 import Context from '../context/Context';
 import Switch from '../styles/components/Switch';
+import Title from '../styles/components/Title';
 
 function Home() {
   const { colors, title } = useContext(ThemeContext);
@@ -15,6 +16,7 @@ function Home() {
   return (
     <MainHome>
       <Switch>
+        <h2>Songify</h2>
         <ReactSwitch
           onChange={toggleTheme}
           checked={title === 'dark'}
@@ -30,7 +32,7 @@ function Home() {
       <img src={songify} alt="songify" />
       <hr />
       <div>
-        <h1>Songify!</h1>
+        <Title>Login</Title>
         <Form />
       </div>
     </MainHome>
