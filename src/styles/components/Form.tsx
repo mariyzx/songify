@@ -2,11 +2,12 @@ import { shade } from 'polished';
 import styled from 'styled-components';
 
 const HomeForm = styled.form`
+  margin-top: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
   width: 100%;
 
   label {
