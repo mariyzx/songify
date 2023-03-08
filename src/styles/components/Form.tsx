@@ -9,6 +9,8 @@ const HomeForm = styled.form`
   align-items: center;
   gap: 1.5rem;
   width: 100%;
+  text-align: left;
+  font-size: 18px;
 
   label {
     display: flex;
@@ -38,7 +40,7 @@ const HomeForm = styled.form`
   }
 
   button {
-    width: 60%;
+    width: 100%;
     height: 35px;
     background-color: ${(props) => props.theme.colors.secondary};
     color: #e1e1e1;
@@ -55,6 +57,10 @@ const HomeForm = styled.form`
   button:disabled {
     cursor: not-allowed;
     background-color: ${(props) => lighten(0.1, props.theme.colors.secondary)};
+  }
+
+  @media only screen and (max-width: 520px) {
+    text-align: center;
   }
 `;
 
