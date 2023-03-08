@@ -37,7 +37,7 @@ function Form() {
   return (
     <HomeForm>
       <label htmlFor="email">
-        Email
+        <h4>Email</h4>
         <input
           type="email"
           id="email"
@@ -46,7 +46,7 @@ function Form() {
         />
       </label>
       <label htmlFor="name">
-        Name
+        <h4>Name</h4>
         <input
           type="text"
           id="name"
