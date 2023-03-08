@@ -10,7 +10,7 @@ const MainHome = styled.div`
   transition: ease all 0.5s;
 
   img {
-    width: 40%;
+    width: 30%;
   }
 
   hr {
