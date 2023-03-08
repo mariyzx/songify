@@ -1,50 +1,35 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { IValue } from '../interfaces/IForm';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import Context from '../context/Context';
 import HomeForm from '../styles/components/Form';
 
+const schema = z.object({
+  email: z.string().email().min(3),
+  name: z.string().min(3),
+});
+
+type SchemaType = z.infer<typeof schema>;
+
 function Form() {
-  const [disabled, setDisabled] = useState(true);
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { createUser } = useContext(Context);
+  const {
+    register,
+    formState: { isDirty, isValid },
+    getValues,
+  } = useForm<SchemaType>({
+    resolver: zodResolver(schema),
+    mode: 'onChange',
+  });
 
-  const validateEmail = (em: string) => {
-    setEmail(em);
-    const regex =
-      /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi;
-    const isEmailValid = regex.test(em);
-
-    if (isEmailValid && em.length > 8 && name.length > 2) {
-      setDisabled(false);
-    } else {
-      setDisabled(true);
-    }
-  };
-
-  const validateName = (nameInput: string) => {
-    setName(nameInput);
-    if (nameInput.length > 2) {
-      setDisabled(false);
-    } else {
-      setDisabled(true);
-    }
-  };
-
-  const handleChange = (target: IValue) => {
-    if (target.name === 'email') {
-      validateEmail(target.value);
-    } else {
-      validateName(target.value);
-    }
-  };
-
-  const handleLogin = () => {
+  const handleLogin = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     setLoading(true);
-    createUser({ name, email });
+    createUser(getValues());
     setLoading(false);
     navigate('/search');
   };
@@ -55,23 +40,25 @@ function Form() {
         Email
         <input
           type="email"
-          name="email"
           id="email"
-          value={email}
-          onChange={({ target }) => handleChange(target)}
+          placeholder="adalovelace@email.com"
+          {...register('email')}
         />
       </label>
       <label htmlFor="name">
         Name
         <input
           type="text"
-          name="name"
           id="name"
-          value={name}
-          onChange={({ target }) => handleChange(target)}
+          placeholder="Ada Lovelace"
+          {...register('name')}
         />
       </label>
-      <button type="submit" disabled={disabled} onClick={() => handleLogin()}>
+      <button
+        type="submit"
+        disabled={!isDirty || !isValid}
+        onClick={(e) => handleLogin(e)}
+      >
         Sign In
       </button>
       {loading && <p>Carregando...</p>}
