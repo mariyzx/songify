@@ -15,7 +15,8 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.1",
     "react-switch": "^7.0.0",
-    "styled-components": "^5.3.6"
+    "styled-components": "^5.3.6",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@testing-library/dom": "^8.20.0",
