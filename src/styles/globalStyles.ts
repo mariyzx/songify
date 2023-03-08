@@ -20,6 +20,10 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Poppins', sans-serif;
     background: ${(props) => props.theme.colors.background};
     color: ${(props) => props.theme.colors.text};
+    
+    @media only screen and (max-width: 600px) {
+      font-size: 85%;
+    }
   }
 `;
 
