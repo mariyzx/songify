@@ -72,7 +72,7 @@ function Form() {
         />
       </label>
       <button type="submit" disabled={disabled} onClick={() => handleLogin()}>
-        Login
+        Sign In
       </button>
       {loading && <p>Carregando...</p>}
     </HomeForm>
