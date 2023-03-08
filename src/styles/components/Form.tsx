@@ -1,4 +1,4 @@
-import { shade } from 'polished';
+import { shade, lighten } from 'polished';
 import styled from 'styled-components';
 
 const HomeForm = styled.form`
@@ -45,6 +45,16 @@ const HomeForm = styled.form`
     border-radius: 10px;
     font-weight: 700;
     box-shadow: 0 5px 5px ${(props) => shade(0.1, props.theme.colors.primary)};
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: ${(props) => shade(0.2, props.theme.colors.secondary)};
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+    background-color: ${(props) => lighten(0.1, props.theme.colors.secondary)};
   }
 `;
 
