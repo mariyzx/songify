@@ -24,7 +24,7 @@ const MainHome = styled.div`
   @media only screen and (max-width: 520px) {
     flex-direction: column;
     height: 100vh;
-    gap: 4rem;
+    gap: 2rem;
 
     img {
       width: 200px;
