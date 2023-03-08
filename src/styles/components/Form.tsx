@@ -30,6 +30,11 @@ const HomeForm = styled.form`
     transition: all 0.5s ease-out;
   }
 
+  label > input::placeholder {
+    color: ${(props) => props.theme.colors.placeholder};
+    font-size: 12px;
+  }
+
   label > input:hover {
     border-bottom: 2px solid ${(props) => props.theme.colors.secondary};
     border-radius: 4px 4px 2px 2px;
@@ -60,7 +65,7 @@ const HomeForm = styled.form`
   }
 
   @media only screen and (max-width: 520px) {
-    text-align: center;
+    text-align: left;
   }
 `;
 
