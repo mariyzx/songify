@@ -1,3 +1,6 @@
+import { AiOutlineSearch } from 'react-icons/ai';
+import { MdFavoriteBorder } from 'react-icons/md';
+import { CgProfile } from 'react-icons/cg';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import ListAlbums from '../components/ListAlbums';
@@ -12,9 +15,18 @@ function Search() {
       <Header />
       <MainSearch>
         <Nav>
-          <Link to="/search">Search</Link>
-          <Link to="/favorites">Favorites</Link>
-          <Link to="/profile">Profile</Link>
+          <Link to="/search">
+            <AiOutlineSearch />
+            Search
+          </Link>
+          <Link to="/favorites">
+            <MdFavoriteBorder />
+            Favorites
+          </Link>
+          <Link to="/profile">
+            <CgProfile />
+            Profile
+          </Link>
         </Nav>
         <MainList>
           <SearchComponent />
