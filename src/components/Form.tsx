@@ -62,7 +62,11 @@ function Form() {
       >
         Sign In
       </Button>
-      {loading && <Loader />}
+      {loading && (
+        <Loader>
+          <div />
+        </Loader>
+      )}
     </HomeForm>
   );
 }

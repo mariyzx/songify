@@ -1,5 +1,7 @@
 import { useContext, useState } from 'react';
 import Context from '../context/Context';
+import { Label, SearchButton } from '../styles/components/Form';
+import Loader from '../styles/components/Loader';
 import { SearchForm } from '../styles/pages/Search';
 
 function Search() {
@@ -14,10 +16,12 @@ function Search() {
   return (
     <SearchForm>
       {loading ? (
-        <p>Carregando...</p>
+        <Loader>
+          <div />
+        </Loader>
       ) : (
         <form>
-          <label htmlFor="search">
+          <Label htmlFor="search">
             <input
               type="text"
               name="search"
@@ -26,10 +30,10 @@ function Search() {
               placeholder="Artist or album.."
               onChange={(e) => setSearchInput(e.target.value)}
             />
-          </label>
-          <button type="button" onClick={handleSearch}>
+          </Label>
+          <SearchButton type="button" onClick={handleSearch}>
             Search
-          </button>
+          </SearchButton>
         </form>
       )}
     </SearchForm>
