@@ -1,7 +1,7 @@
 import { shade, lighten } from 'polished';
 import styled from 'styled-components';
 
-const HomeForm = styled.form`
+export const HomeForm = styled.form`
   margin-top: 1rem;
   display: flex;
   flex-direction: column;
@@ -12,14 +12,39 @@ const HomeForm = styled.form`
   text-align: left;
   font-size: 18px;
 
-  label {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin: 1px;
+  @media only screen and (max-width: 520px) {
+    text-align: left;
+  }
+`;
+
+export const Button = styled.button`
+  width: 100%;
+  height: 35px;
+  background-color: ${(props) => props.theme.colors.secondary};
+  color: #e1e1e1;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  font-weight: 700;
+  box-shadow: 0 5px 5px ${(props) => shade(0.1, props.theme.colors.primary)};
+  cursor: pointer;
+
+  :hover {
+    background-color: ${(props) => shade(0.2, props.theme.colors.secondary)};
   }
 
-  label > input {
+  :disabled {
+    cursor: not-allowed;
+    background-color: ${(props) => lighten(0.1, props.theme.colors.secondary)};
+  }
+`;
+
+export const Label = styled.label`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 1px;
+
+  input {
     background-color: transparent;
     color: ${(props) => props.theme.colors.text};
     border: none;
@@ -30,44 +55,39 @@ const HomeForm = styled.form`
     transition: all 0.5s ease-out;
   }
 
-  label > input::placeholder {
+  input::placeholder {
     color: ${(props) => props.theme.colors.placeholder};
     font-size: 12px;
   }
 
-  label > input:hover {
+  input:hover {
     border-bottom: 2px solid ${(props) => props.theme.colors.secondary};
     border-radius: 4px 4px 2px 2px;
   }
 
-  label > input:focus {
+  input:focus {
     outline: none;
-  }
-
-  button {
-    width: 100%;
-    height: 35px;
-    background-color: ${(props) => props.theme.colors.secondary};
-    color: #e1e1e1;
-    border: 2px solid transparent;
-    border-radius: 10px;
-    font-weight: 700;
-    box-shadow: 0 5px 5px ${(props) => shade(0.1, props.theme.colors.primary)};
-    cursor: pointer;
-  }
-
-  button:hover {
-    background-color: ${(props) => shade(0.2, props.theme.colors.secondary)};
-  }
-
-  button:disabled {
-    cursor: not-allowed;
-    background-color: ${(props) => lighten(0.1, props.theme.colors.secondary)};
-  }
-
-  @media only screen and (max-width: 520px) {
-    text-align: left;
   }
 `;
 
-export default HomeForm;
+export const SearchButton = styled.button`
+  background-color: ${(props) => props.theme.colors.secondary};
+  padding: 6px;
+  color: #e1e1e1;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  font-weight: 700;
+  box-shadow: 0 5px 5px ${(props) => shade(0.1, props.theme.colors.primary)};
+  cursor: pointer;
+
+  :hover {
+    background-color: ${(props) => props.theme.colors.background};
+    border: 2px solid ${(props) => props.theme.colors.secondary};
+    color: ${(props) => lighten(0.1, props.theme.colors.secondary)};
+  }
+
+  :disabled {
+    cursor: not-allowed;
+    background-color: ${(props) => lighten(0.1, props.theme.colors.secondary)};
+  }
+`;
