@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import Context from '../context/Context';
 import SongsCard from '../components/SongsCard';
 import Header from '../components/Header';
+import Loader from '../styles/components/Loader';
 
 function Album() {
   const { songs, getSongs, artistName, loading } = useContext(Context);
@@ -25,7 +26,9 @@ function Album() {
         </div>
       )}
       {loading ? (
-        <p>Carregando...</p>
+        <Loader>
+          <div />
+        </Loader>
       ) : (
         tracks.map((song) => <SongsCard song={song} key={song.trackId} />)
       )}
