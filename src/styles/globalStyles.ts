@@ -21,6 +21,11 @@ const GlobalStyle = createGlobalStyle`
     background: ${(props) => props.theme.colors.background};
     color: ${(props) => props.theme.colors.text};
     
+    a {
+      text-decoration: none;
+      color: ${(props) => props.theme.colors.text};
+    }
+    
     @media only screen and (max-width: 600px) {
       font-size: 85%;
     }
