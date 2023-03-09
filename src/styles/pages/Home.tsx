@@ -4,7 +4,7 @@ const MainHome = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 85vh;
   text-align: center;
   gap: 4rem;
   transition: ease all 0.5s;
