@@ -22,6 +22,11 @@ export const ListAlb = styled.div`
   width: 100%;
   flex-wrap: wrap;
   padding-left: 20px;
+
+  @media only screen and (max-width: 630px) {
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 export const CardAlbum = styled.div`
@@ -66,5 +71,11 @@ export const CardAlbum = styled.div`
 
   img {
     width: 100px;
+  }
+
+  @media only screen and (max-width: 630px) {
+    width: 200px;
+    justify-content: center;
+    align-items: center;
   }
 `;
