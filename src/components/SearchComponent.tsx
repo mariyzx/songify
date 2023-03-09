@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 import Context from '../context/Context';
+import { SearchForm } from '../styles/pages/Search';
 
 function Search() {
   const [searchInput, setSearchInput] = useState('');
@@ -11,7 +12,7 @@ function Search() {
   };
 
   return (
-    <div>
+    <SearchForm>
       {loading ? (
         <p>Carregando...</p>
       ) : (
@@ -31,7 +32,7 @@ function Search() {
           </button>
         </form>
       )}
-    </div>
+    </SearchForm>
   );
 }
 
