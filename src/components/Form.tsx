@@ -4,7 +4,8 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Context from '../context/Context';
-import HomeForm from '../styles/components/Form';
+import { Button, HomeForm, Label } from '../styles/components/Form';
+import Loader from '../styles/components/Loader';
 
 const schema = z.object({
   email: z.string().email().min(3),
@@ -36,7 +37,7 @@ function Form() {
 
   return (
     <HomeForm>
-      <label htmlFor="email">
+      <Label htmlFor="email">
         <h4>Email</h4>
         <input
           type="email"
@@ -44,8 +45,8 @@ function Form() {
           placeholder="adalovelace@email.com"
           {...register('email')}
         />
-      </label>
-      <label htmlFor="name">
+      </Label>
+      <Label htmlFor="name">
         <h4>Name</h4>
         <input
           type="text"
@@ -53,15 +54,15 @@ function Form() {
           placeholder="Ada Lovelace"
           {...register('name')}
         />
-      </label>
-      <button
+      </Label>
+      <Button
         type="submit"
         disabled={!isDirty || !isValid}
         onClick={(e) => handleLogin(e)}
       >
         Sign In
-      </button>
-      {loading && <p>Carregando...</p>}
+      </Button>
+      {loading && <Loader />}
     </HomeForm>
   );
 }
