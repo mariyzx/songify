@@ -14,7 +14,7 @@ function Home() {
   const { toggleTheme } = useContext(Context);
 
   return (
-    <MainHome>
+    <div>
       <Switch>
         <h2>Songify</h2>
         <ReactSwitch
@@ -29,13 +29,15 @@ function Home() {
           onColor={colors.secondary}
         />
       </Switch>
-      <img src={songify} alt="songify" />
-      <hr />
-      <div>
-        <Title>Login</Title>
-        <Form />
-      </div>
-    </MainHome>
+      <MainHome>
+        <img src={songify} alt="songify" />
+        <hr />
+        <div>
+          <Title>Login</Title>
+          <Form />
+        </div>
+      </MainHome>
+    </div>
   );
 }
 
