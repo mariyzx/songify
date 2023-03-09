@@ -15,4 +15,9 @@ export const SearchForm = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  form {
+    display: flex;
+    gap: 1rem;
+  }
 `;
