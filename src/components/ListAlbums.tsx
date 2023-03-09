@@ -15,15 +15,20 @@ function ListAlbums() {
             {albums.map((album) => (
               <div key={album.artworkUrl100}>
                 <CardAlbum>
-                  <Link to={`/album/${album.collectionId}`}>
-                    <img src={album.artworkUrl100} alt={album.collectionName} />
-                    <h3>{album.collectionName}</h3>
-                    <div>
-                      <p>{album.releaseDate.substring(0, 4)}</p>
-                      <span>•</span>
-                      <p>{artistName}</p>
-                    </div>
-                  </Link>
+                  <div>
+                    <Link to={`/album/${album.collectionId}`}>
+                      <img
+                        src={album.artworkUrl100}
+                        alt={album.collectionName}
+                      />
+                      <h3>{album.collectionName}</h3>
+                      <div>
+                        <p>{album.releaseDate.substring(0, 4)}</p>
+                        <span>•</span>
+                        <p>{artistName}</p>
+                      </div>
+                    </Link>
+                  </div>
                   <span>
                     <AiFillPlayCircle />
                   </span>
