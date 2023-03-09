@@ -16,7 +16,6 @@ const GlobalStyle = createGlobalStyle`
   body {
     min-height: 100vh;
     min-width: 100%;
-    overflow: hidden;
     font-family: 'Poppins', sans-serif;
     background: ${(props) => props.theme.colors.background};
     color: ${(props) => props.theme.colors.text};
