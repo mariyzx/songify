@@ -8,6 +8,7 @@ import songify from '../assets/songify.svg';
 import Context from '../context/Context';
 import Switch from '../styles/components/Switch';
 import Title from '../styles/components/Title';
+import Footer from '../styles/components/Footer';
 
 function Home() {
   const { colors, title } = useContext(ThemeContext);
@@ -36,6 +37,11 @@ function Home() {
           <Title>Login</Title>
           <Form />
         </div>
+        <Footer>
+          <a href="https://github.com/mariyzx" target="_blank" rel="noreferrer">
+            Mariana Werneck
+          </a>
+        </Footer>
       </MainHome>
     </div>
   );
