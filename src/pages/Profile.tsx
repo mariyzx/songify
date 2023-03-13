@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import { ICreatedUser } from '../interfaces/IUser';
-import Profile from '../styles/pages/Profile';
+import MainProfile from '../styles/pages/Profile';
 
 function Profile() {
   const emptyUser = {
