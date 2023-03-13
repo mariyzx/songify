@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import Album from './pages/Album';
 import Favorites from './pages/Favorites';
 import Profile from './pages/Profile';
-import ProfileEdit from './components/ProfileEdit';
+import ProfileEdit from './pages/ProfileEdit';
 import Search from './pages/Search';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
