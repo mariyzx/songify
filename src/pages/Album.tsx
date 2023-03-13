@@ -5,6 +5,7 @@ import SongsCard from '../components/SongsCard';
 import Header from '../components/Header';
 import Loader from '../styles/components/Loader';
 import MainAlbum from '../styles/pages/Album';
+import { Songs } from '../styles/components/SongsCard';
 
 function Album() {
   const { songs, getSongs, artistName, loading } = useContext(Context);
@@ -33,7 +34,11 @@ function Album() {
           <div />
         </Loader>
       ) : (
-        tracks.map((song) => <SongsCard song={song} key={song.trackId} />)
+        <Songs>
+          {tracks.map((song) => (
+            <SongsCard song={song} key={song.trackId} />
+          ))}
+        </Songs>
       )}
     </div>
   );
