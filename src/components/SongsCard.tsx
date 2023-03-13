@@ -6,6 +6,7 @@ import { ITarget } from '../interfaces/IHandleTarget';
 import { IProps } from '../interfaces/ISongs';
 import { IFavorite } from '../interfaces/IFavorites';
 import { DivSongs } from '../styles/components/SongsCard';
+import Audio from '../styles/components/Audio';
 
 function SongsCard(props: IProps) {
   const { song } = props;
@@ -34,10 +35,10 @@ function SongsCard(props: IProps) {
   return (
     <DivSongs data-testid="songs">
       <h4>{song.trackName}</h4>
-      <audio src={song.previewUrl} controls>
+      <Audio src={song.previewUrl} controls>
         <track kind="caption" />
-        Your browser doesn&apos;t support the element! <code>audio</code>
-      </audio>
+        Your browser doesn&apos;t support the element! <code>Audio</code>
+      </Audio>
       <label htmlFor="favorite" data-testid="fav_input">
         <HeartSwitch
           size="sm"
