@@ -2,6 +2,9 @@
 
 Nesse projeto desenvolvi uma aplicação em React, responsável por reproduzir músicas das mais variadas bandas e artistas, criar uma lista de músicas favoritas e editar o perfil da pessoa usuária logada, consumindo a iTunes Search API.
 Estilizado com Styled Components e possuindo design responsivo!
+<br>
+<br>
+[Deploy da aplicação!](https://songify-neon.vercel.app/)
 
 ## 🚀 Começando
 
