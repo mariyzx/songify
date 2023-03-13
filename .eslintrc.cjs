@@ -30,5 +30,6 @@ module.exports = {
     'jsx-a11y/media-has-caption': 0,
     'react/prop-types': 0,
     'react/jsx-props-no-spreading': 0,
+    '@typescript-eslint/no-explicit-any': 0,
   },
 };
