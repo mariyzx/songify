@@ -4,7 +4,7 @@ import Context from '../context/Context';
 import SongsCard from '../components/SongsCard';
 import Header from '../components/Header';
 import Loader from '../styles/components/Loader';
-import MainAlbum from '../styles/pages/Album';
+import { MainAlbum, DivAlbum } from '../styles/pages/Album';
 import { Songs } from '../styles/components/SongsCard';
 
 function Album() {
@@ -20,26 +20,28 @@ function Album() {
   return (
     <div>
       <Header />
-      {songs.length > 0 && (
-        <MainAlbum>
-          <img src={info.artworkUrl100} alt={info.collectionName} />
-          <span>
-            <h2>{info.collectionName}</h2>
-            <h3>{artistName}</h3>
-          </span>
-        </MainAlbum>
-      )}
-      {loading ? (
-        <Loader>
-          <div />
-        </Loader>
-      ) : (
-        <Songs>
-          {tracks.map((song) => (
-            <SongsCard song={song} key={song.trackId} />
-          ))}
-        </Songs>
-      )}
+      <MainAlbum>
+        {songs.length > 0 && (
+          <DivAlbum>
+            <img src={info.artworkUrl100} alt={info.collectionName} />
+            <span>
+              <h2>{info.collectionName}</h2>
+              <h3>{artistName}</h3>
+            </span>
+          </DivAlbum>
+        )}
+        {loading ? (
+          <Loader>
+            <div />
+          </Loader>
+        ) : (
+          <Songs>
+            {tracks.map((song) => (
+              <SongsCard song={song} key={song.trackId} />
+            ))}
+          </Songs>
+        )}
+      </MainAlbum>
     </div>
   );
 }
