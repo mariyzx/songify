@@ -7,6 +7,6 @@ export default {
 
     background: '#000',
     text: '#e1e1e1',
-    plaholder: '#898989',
+    placeholder: '#898989',
   },
 };
