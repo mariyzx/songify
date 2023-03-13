@@ -11,7 +11,7 @@ import light from '../styles/themes/light';
 import dark from '../styles/themes/dark';
 import usePersistedState from '../utils/usePersistedState';
 
-function Provider({ children }: never) {
+function Provider({ children }: any) {
   const emptyUser = {
     name: '',
     email: '',
