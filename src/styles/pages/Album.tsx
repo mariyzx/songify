@@ -6,6 +6,7 @@ const MainAlbum = styled.div`
   align-items: center;
   gap: 2rem;
   margin-top: 10px;
+  padding: 1rem;
 `;
 
 export default MainAlbum;
