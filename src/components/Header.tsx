@@ -12,22 +12,22 @@ function Header() {
 
   return (
     <div>
-      <Link to="/search">
-        <Switch>
+      <Switch>
+        <Link to="/search">
           <h2>Songify</h2>
-          <ReactSwitch
-            onChange={toggleTheme}
-            checked={title === 'dark'}
-            checkedIcon={false}
-            uncheckedIcon={false}
-            height={10}
-            width={40}
-            handleDiameter={20}
-            offColor={shade(0.1, colors.primary)}
-            onColor={colors.secondary}
-          />
-        </Switch>
-      </Link>
+        </Link>
+        <ReactSwitch
+          onChange={toggleTheme}
+          checked={title === 'dark'}
+          checkedIcon={false}
+          uncheckedIcon={false}
+          height={10}
+          width={40}
+          handleDiameter={20}
+          offColor={shade(0.1, colors.primary)}
+          onColor={colors.secondary}
+        />
+      </Switch>
     </div>
   );
 }
