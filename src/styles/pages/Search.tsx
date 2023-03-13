@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const MainSearch = styled.div`
   height: 94vh;
   display: flex;
-  justify-content: space-between;
   width: 100%;
 
   @media only screen and (max-width: 630px) {
