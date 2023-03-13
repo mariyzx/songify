@@ -29,6 +29,7 @@ const Nav = styled.nav`
     flex-direction: row;
     justify-content: center;
     width: 100%;
+    height: max-content;
   }
 `;
 
