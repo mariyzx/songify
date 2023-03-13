@@ -4,6 +4,7 @@ import Context from '../context/Context';
 import SongsCard from '../components/SongsCard';
 import Header from '../components/Header';
 import Loader from '../styles/components/Loader';
+import MainAlbum from '../styles/pages/Album';
 
 function Album() {
   const { songs, getSongs, artistName, loading } = useContext(Context);
@@ -19,11 +20,13 @@ function Album() {
     <div>
       <Header />
       {songs.length > 0 && (
-        <div>
-          <h2>{info.collectionName}</h2>
+        <MainAlbum>
           <img src={info.artworkUrl100} alt={info.collectionName} />
-          <h3>{artistName}</h3>
-        </div>
+          <span>
+            <h2>{info.collectionName}</h2>
+            <h3>{artistName}</h3>
+          </span>
+        </MainAlbum>
       )}
       {loading ? (
         <Loader>
