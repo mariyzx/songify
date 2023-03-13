@@ -20,7 +20,7 @@ function Search() {
           <div />
         </Loader>
       ) : (
-        <form>
+        <form onSubmit={handleSearch}>
           <Label htmlFor="search">
             <input
               type="text"
