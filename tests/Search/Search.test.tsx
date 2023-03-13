@@ -23,7 +23,7 @@ describe('Search >', () => {
   });
 
   it('Render Search component', () => {
-    const title = screen.getByRole('heading', { name: /songify!/i });
+    const title = screen.getByRole('heading', { name: /songify/i });
     expect(title).toBeInTheDocument();
   });
 

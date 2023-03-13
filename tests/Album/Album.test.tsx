@@ -47,21 +47,21 @@ describe('Album >', () => {
 
   it('Render every song of the album', () => {
     const songs = screen.getAllByTestId('songs');
-    expect(songs.length).toBe(tracksMock.length);
+    expect(songs.length).toBe(tracksMock.length - 1);
   });
 
   it('Add song to favorites', async () => {
     const song = screen.getAllByTestId('songs')[0];
-    expect(song).toHaveTextContent(tracksMock[0].trackName);
+    expect(song).toHaveTextContent(tracksMock[1].trackName);
     const fav = screen.getAllByTestId('fav_input')[0];
     userEvent.click(fav);
 
     const data = [
       {
-        trackName: tracksMock[0].trackName,
-        previewUrl: tracksMock[0].previewUrl,
-        artistName: tracksMock[0].artistName,
-        artworkUrl100: tracksMock[0].artworkUrl100,
+        trackName: tracksMock[1].trackName,
+        previewUrl: tracksMock[1].previewUrl,
+        artistName: tracksMock[1].artistName,
+        artworkUrl100: tracksMock[1].artworkUrl100,
       },
     ];
 

@@ -6,7 +6,7 @@ import { IUser, ICreatedUser } from '../../src/interfaces/IUser';
 import light from '../../src/styles/themes/light';
 import albumMock from './albums';
 import favoriteMock from './favorite';
-import { songsMock } from './songs';
+import { tracksMock } from './songs';
 import mockUser from './user';
 
 export interface IContext {
@@ -66,7 +66,7 @@ export const providerInfo: IContext = {
   getAlbums,
   artistName: albumMock[0].artistName,
   getSongs,
-  songs: songsMock,
+  songs: tracksMock,
   addToFav,
   removeToFav,
   favSongs: favoriteMock,
