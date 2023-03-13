@@ -41,6 +41,7 @@ Os testes verificam a renderização de cada componente e o fluxo das páginas. 
     expect(button).toBeInTheDocument();
 ```
 
+
 ## 🛠️ Construído com
 
 * [TypeScript](https://www.typescriptlang.org/)
@@ -53,6 +54,17 @@ Os testes verificam a renderização de cada componente e o fluxo das páginas. 
 * [Polished](https://polished.js.org/)
 * [React Switch](https://www.npmjs.com/package/react-switch)
 * [React Icons](https://react-icons.github.io/react-icons/)
+
+### ⚙️ Ajustes e melhorias
+
+O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas nas seguintes tarefas de acessibilidade:
+
+- [ ] Centralizar título da Home
+- [ ] Botões em formato de pílula
+- [ ] Ícones no Switch
+- [ ] Contraste no Switch
+- [ ] Retirar borda no hover e adicionar on focus
+- [ ] Aumentar fonte
 
 ## 💚 Connect:
 
