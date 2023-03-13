@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const MainAlbum = styled.div`
+export const DivAlbum = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,4 +9,8 @@ const MainAlbum = styled.div`
   padding: 1rem;
 `;
 
-export default MainAlbum;
+export const MainAlbum = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
