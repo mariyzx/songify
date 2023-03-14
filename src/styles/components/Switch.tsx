@@ -1,6 +1,18 @@
 import styled from 'styled-components';
 
-const Switch = styled.div`
+export const DivSwitch = styled.div`
+  display: flex;
+  gap: 0.3rem;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    font-weight: bolder;
+    font-size: larger;
+  }
+`;
+
+export const Switch = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
@@ -9,5 +21,3 @@ const Switch = styled.div`
   padding-top: 5px;
   align-items: center;
 `;
-
-export default Switch;
