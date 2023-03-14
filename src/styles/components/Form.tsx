@@ -61,12 +61,14 @@ export const Label = styled.label`
   }
 
   input:hover {
-    border-bottom: 2px solid ${(props) => props.theme.colors.secondary};
-    border-radius: 4px 4px 2px 2px;
+    border-bottom: 2px solid
+      ${(props) => shade(0.2, props.theme.colors.primary)};
   }
 
   input:focus {
     outline: none;
+    border-bottom: 2px solid ${(props) => props.theme.colors.secondary};
+    border-radius: 4px 4px 2px 2px;
   }
 `;
 
