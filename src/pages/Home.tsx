@@ -4,7 +4,12 @@ import { ThemeContext } from 'styled-components';
 import { lighten, shade } from 'polished';
 import { BsSun, BsMoon } from 'react-icons/bs';
 import Form from '../components/Form';
-import MainHome from '../styles/pages/Home';
+import {
+  LoginDiv,
+  MainContent,
+  MainHome,
+  TitleDiv,
+} from '../styles/pages/Home';
 import songify from '../assets/songify.svg';
 import Context from '../context/Context';
 import { DivSwitch, Switch } from '../styles/components/Switch';
@@ -18,7 +23,6 @@ function Home() {
   return (
     <div>
       <Switch>
-        <h2>Songify</h2>
         <DivSwitch>
           <BsSun />
           <ReactSwitch
@@ -37,12 +41,17 @@ function Home() {
         </DivSwitch>
       </Switch>
       <MainHome>
-        <img src={songify} alt="songify" />
-        <hr />
-        <div>
-          <Title>Login</Title>
-          <Form />
-        </div>
+        <MainContent>
+          <TitleDiv>
+            <Title>Songify!</Title>
+            <img src={songify} alt="songify" />
+          </TitleDiv>
+          <hr />
+          <LoginDiv>
+            <h2>Login</h2>
+            <Form />
+          </LoginDiv>
+        </MainContent>
         <Footer>
           <a href="https://github.com/mariyzx" target="_blank" rel="noreferrer">
             Mariana Werneck
