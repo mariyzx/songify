@@ -59,11 +59,6 @@ Os testes verificam a renderização de cada componente e o fluxo das páginas. 
 
 O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas nas seguintes tarefas de acessibilidade:
 
-- [ ] Centralizar título da Home
-- [x] Botões em formato de pílula
-- [x] Ícones no Switch
-- [x] Contraste no Switch
-- [ ] Retirar borda no hover e adicionar on focus
 - [ ] Aumentar fonte
 
 ## 💚 Connect:
