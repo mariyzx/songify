@@ -13,11 +13,7 @@ export const DivSwitch = styled.div`
 `;
 
 export const Switch = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-top: 5px;
-  align-items: center;
+  position: absolute;
+  right: 10px;
+  top: 10px;
 `;
