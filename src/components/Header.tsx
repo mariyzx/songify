@@ -3,19 +3,22 @@ import { Link } from 'react-router-dom';
 import { ThemeContext } from 'styled-components';
 import { shade } from 'polished';
 import ReactSwitch from 'react-switch';
+import { BsMoon, BsSun } from 'react-icons/bs';
 import Context from '../context/Context';
-import { Switch } from '../styles/components/Switch';
+import { DivSwitch } from '../styles/components/Switch';
+import MainHeader from '../styles/components/Header';
 
 function Header() {
   const { toggleTheme } = useContext(Context);
   const { colors, title } = useContext(ThemeContext);
 
   return (
-    <div>
-      <Switch>
-        <Link to="/search">
-          <h2>Songify</h2>
-        </Link>
+    <MainHeader>
+      <Link to="/search">
+        <h2>Songify</h2>
+      </Link>
+      <DivSwitch>
+        <BsSun />
         <ReactSwitch
           onChange={toggleTheme}
           checked={title === 'dark'}
@@ -27,8 +30,9 @@ function Header() {
           offColor={shade(0.1, colors.primary)}
           onColor={colors.secondary}
         />
-      </Switch>
-    </div>
+        <BsMoon />
+      </DivSwitch>
+    </MainHeader>
   );
 }
 
