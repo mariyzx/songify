@@ -78,10 +78,11 @@ export const SearchButton = styled.button`
   padding: 6px;
   color: #e1e1e1;
   border: 2px solid transparent;
-  border-radius: 10px;
+  border-radius: 16px;
   font-weight: 700;
   box-shadow: 0 5px 5px ${(props) => shade(0.1, props.theme.colors.primary)};
   cursor: pointer;
+  transition: ease all 0.5s;
 
   :hover {
     background-color: ${(props) => props.theme.colors.background};
