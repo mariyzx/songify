@@ -4,7 +4,7 @@ import { ThemeContext } from 'styled-components';
 import { shade } from 'polished';
 import ReactSwitch from 'react-switch';
 import Context from '../context/Context';
-import Switch from '../styles/components/Switch';
+import { Switch } from '../styles/components/Switch';
 
 function Header() {
   const { toggleTheme } = useContext(Context);
