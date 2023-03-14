@@ -61,8 +61,8 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 
 - [ ] Centralizar título da Home
 - [ ] Botões em formato de pílula
-- [ ] Ícones no Switch
-- [ ] Contraste no Switch
+- [x] Ícones no Switch
+- [x] Contraste no Switch
 - [ ] Retirar borda no hover e adicionar on focus
 - [ ] Aumentar fonte
 

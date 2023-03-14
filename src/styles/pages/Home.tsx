@@ -23,7 +23,6 @@ const MainHome = styled.div`
   // https://www.emailonacid.com/blog/article/email-development/emailology_media_queries_demystified_min-width_and_max-width/
   @media only screen and (max-width: 520px) {
     flex-direction: column;
-    height: 100vh;
     gap: 2rem;
 
     img {
