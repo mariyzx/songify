@@ -59,9 +59,10 @@ Os testes verificam a renderização de cada componente e o fluxo das páginas. 
 
 O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas nas seguintes tarefas de acessibilidade:
 
-- [ ] Aumentar fonte
-- [ ] Transição nos links de navegação
+- [x] Aumentar fonte
+- [x] Transição nos links de navegação
 - [ ] Estilizar página Not Found
+- [ ] Cards de álbuns em disposição horizontal
 
 ## 💚 Connect:
 
