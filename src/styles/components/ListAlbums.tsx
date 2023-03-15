@@ -55,15 +55,6 @@ export const CardAlbum = styled.div`
       color: ${(props) => props.theme.colors.secondary};
       transition: all ease 0.2s;
     }
-
-    @media only screen and (max-width: 630px) {
-      flex-direction: column;
-
-      div {
-        justify-content: center;
-        text-align: center;
-      }
-    }
   }
 
   h3 {
