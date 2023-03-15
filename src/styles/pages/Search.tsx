@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const MainSearch = styled.div`
-  height: 94vh;
+  height: 90vh;
   display: flex;
   width: 100%;
 
