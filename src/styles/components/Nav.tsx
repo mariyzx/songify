@@ -5,8 +5,7 @@ const Nav = styled.nav`
   gap: 1rem;
   flex-direction: column;
   width: 17%;
-  margin-top: 0.7rem;
-  height: 100vh;
+  height: 90vh;
   padding-left: 15px;
 
   a:hover {
