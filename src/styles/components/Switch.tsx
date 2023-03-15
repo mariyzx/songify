@@ -15,5 +15,5 @@ export const DivSwitch = styled.div`
 export const Switch = styled.div`
   position: absolute;
   right: 10px;
-  top: 10px;
+  top: 5px;
 `;
