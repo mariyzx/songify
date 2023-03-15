@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-import { AiFillPlayCircle } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import Context from '../context/Context';
 import { DivAlbum, CardAlbum, ListAlb } from '../styles/components/ListAlbums';
@@ -15,23 +14,15 @@ function ListAlbums() {
             {albums.map((album) => (
               <div key={album.artworkUrl100}>
                 <CardAlbum>
-                  <div>
-                    <Link to={`/album/${album.collectionId}`}>
-                      <img
-                        src={album.artworkUrl100}
-                        alt={album.collectionName}
-                      />
-                      <h3>{album.collectionName}</h3>
-                      <div>
-                        <p>{album.releaseDate.substring(0, 4)}</p>
-                        <span>•</span>
-                        <p>{artistName}</p>
-                      </div>
-                    </Link>
-                  </div>
-                  <span>
-                    <AiFillPlayCircle />
-                  </span>
+                  <Link to={`/album/${album.collectionId}`}>
+                    <img src={album.artworkUrl100} alt={album.collectionName} />
+                    <h3>{album.collectionName}</h3>
+                    <div>
+                      <p>{album.releaseDate.substring(0, 4)}</p>
+                      <span>•</span>
+                      <p>{artistName}</p>
+                    </div>
+                  </Link>
                 </CardAlbum>
               </div>
             ))}
