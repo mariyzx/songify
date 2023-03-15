@@ -19,4 +19,14 @@ export const SearchForm = styled.div`
     display: flex;
     gap: 1rem;
   }
+
+  input {
+    width: 400px;
+  }
+
+  @media only screen and (max-width: 520px) {
+    input {
+      width: 200px;
+    }
+  }
 `;
