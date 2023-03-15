@@ -8,10 +8,13 @@ const Nav = styled.nav`
   height: 90vh;
   padding-left: 15px;
 
-  a:hover {
-    svg {
-      color: ${(props) => props.theme.colors.secondary};
-    }
+  a > svg {
+    color: inherit;
+    transition: 0.5s;
+  }
+
+  a:hover > svg {
+    color: ${(props) => props.theme.colors.secondary};
   }
 
   a {
