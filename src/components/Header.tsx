@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ThemeContext } from 'styled-components';
-import { shade } from 'polished';
+import { lighten, shade } from 'polished';
 import ReactSwitch from 'react-switch';
 import { BsMoon, BsSun } from 'react-icons/bs';
 import Context from '../context/Context';
@@ -27,6 +27,7 @@ function Header() {
           height={10}
           width={40}
           handleDiameter={20}
+          boxShadow={`2px 2px 18px ${lighten(0.1, colors.secondary)}`}
           offColor={shade(0.1, colors.primary)}
           onColor={colors.secondary}
         />
