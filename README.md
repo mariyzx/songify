@@ -61,7 +61,7 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 
 - [x] Aumentar fonte
 - [x] Transição nos links de navegação
-- [ ] Estilizar página Not Found
+- [x] Estilizar página Not Found
 - [ ] Cards de álbuns em disposição horizontal
 
 ## 💚 Connect:
