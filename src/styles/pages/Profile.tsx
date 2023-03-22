@@ -9,6 +9,10 @@ const MainProfile = styled.div`
   a {
     text-decoration: underline;
   }
+
+  img {
+    width: 250px;
+  }
 `;
 
 export default MainProfile;
