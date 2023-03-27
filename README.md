@@ -63,6 +63,7 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 - [x] Transição nos links de navegação
 - [x] Estilizar página Not Found
 - [ ] Cards de álbuns em disposição horizontal
+- [ ] Indicações de músicas na tela inicial
 
 ## 💚 Connect:
 
