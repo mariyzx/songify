@@ -1,11 +1,18 @@
-import { IFavoriteSongs } from './FavoriteSongs';
+import { IFavoriteSongs } from './IFavoriteSongs';
 
 export interface IRegisterUser {
   name: string,
   email: string,
   password: string
-  token: string,
   favoriteSongs?: IFavoriteSongs[]
 }
 
-export type IRegisterResponse = Omit<IRegisterUser, 'password'>
+export interface IRegisterCredentials {
+  name: string,
+  email: string,
+  password: string
+}
+
+export interface IRegisterResponse extends IRegisterUser {
+  token: string
+}
