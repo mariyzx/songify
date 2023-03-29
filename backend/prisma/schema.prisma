@@ -14,6 +14,7 @@ model User {
   id            Int             @id @default(autoincrement())
   name          String
   email         String          @unique
+  password      String
   token         String          @unique
   favoriteSongs Songs[]  @relation(name: "Favorite_Songs")
 }
