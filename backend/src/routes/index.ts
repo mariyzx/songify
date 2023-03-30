@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { CreateRegisterControllerFactory } from '../factories/RegisterControllerFactory';
+import { CreateUserControllerFactory } from '../factories/UserControllerFactory';
 import validateRegister from '../utils/validators';
 
 const router = Router();
-const registerController = CreateRegisterControllerFactory.make();
+const registerController = CreateUserControllerFactory.make();
 
 router.post('/register', validateRegister, (req, res) => registerController.register(req, res));
 

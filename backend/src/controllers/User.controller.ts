@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
-import { IRegisterService } from '../interfaces/services/IRegister.service';
+import { IUserService } from '../interfaces/services/User.service';
 
 export default class RegisterController {
-	constructor(private registerService: IRegisterService) {}
+	constructor(private userService: IUserService) {}
 
 	async register(req: Request, res:Response) {
 		const { email, password, name } = req.body;
 
-		const user = await this.registerService.register({ email, password, name });
+		const user = await this.userService.register({ email, password, name });
 
 		return res.status(201).json(user);
 	}

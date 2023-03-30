@@ -1,5 +1,5 @@
 import { IRegisterCredentials, IRegisterResponse } from '../IRegister';
 
-export interface IRegisterService {
+export interface IUserService {
   register(user: IRegisterCredentials): Promise<IRegisterResponse | null> 
 }

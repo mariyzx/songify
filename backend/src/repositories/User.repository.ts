@@ -1,8 +1,8 @@
 import { IRegisterResponse, IRegisterCredentials } from '../interfaces/IRegister';
-import { IRegisterRepository } from '../interfaces/repositories/IRegisterRepository';
+import { IUserRepository } from '../interfaces/repositories/UserRepository';
 import Prisma from '../model';
 
-export class RegisterRepository implements IRegisterRepository {
+export class UserRepository implements IUserRepository {
 	async register(data: IRegisterResponse): Promise<IRegisterResponse | null> {
 		return (await Prisma.user.create({
 			data: {
