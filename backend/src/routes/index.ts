@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { CreateUserControllerFactory } from '../factories/UserControllerFactory';
-import validateRegister from '../utils/validators';
+import validateRegister from '../middlewares/validators';
 
 const router = Router();
 const registerController = CreateUserControllerFactory.make();
