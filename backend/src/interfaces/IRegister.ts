@@ -12,7 +12,3 @@ export interface IRegisterCredentials {
   email: string,
   password: string
 }
-
-export interface IRegisterResponse extends IRegisterUser {
-  token: string
-}
