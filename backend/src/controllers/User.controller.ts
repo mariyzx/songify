@@ -9,6 +9,8 @@ export default class RegisterController {
 
 		const user = await this.userService.register({ email, password, name });
 
+		if (!user) return res.status(400).json({ message: 'User already exists!'});
+
 		return res.status(201).json(user);
 	}
 }
