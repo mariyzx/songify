@@ -1,6 +1,8 @@
 import md5 from 'md5';
+import { ILoginCredentials, ILoginResponse } from '../interfaces/ILogin';
 import { IRegisterCredentials, IRegisterUser } from '../interfaces/IRegister';
 import { IUserRepository } from '../interfaces/repositories/UserRepository';
+import { jwtGen } from '../utils/jwt';
 
 export default class RegisterService {
 	constructor(
@@ -17,5 +19,19 @@ export default class RegisterService {
     
 		const createdUser = await this.userRepository.register({ ...user, password});
 		return createdUser;
+	}
+
+	
+	async login(user: ILoginCredentials): Promise<ILoginResponse | null> {
+		const userExists = await this.userRepository.findUser(user);
+		const { email, password } = user;
+		const pass = md5(password);
+
+		if (!userExists || pass !== userExists.password) return null;
+
+		const { password: _, ...userWithoutPass} = userExists;
+		const token = jwtGen({ email });
+
+		return { ...userWithoutPass, token };
 	}
 }
