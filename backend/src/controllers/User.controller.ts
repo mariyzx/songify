@@ -13,4 +13,14 @@ export default class RegisterController {
 
 		return res.status(201).json(user);
 	}
+
+	async login(req: Request, res: Response) {
+		const { email, password } = req.body;
+
+		const user = await this.userService.login({ email, password });
+
+		if (!user) return res.status(400).json({ message: 'User not found!' });
+
+		return res.status(200).json(user);
+	}
 }
