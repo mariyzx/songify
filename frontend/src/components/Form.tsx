@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -62,6 +62,7 @@ function Form() {
       >
         Sign In
       </Button>
+      <p>Doesn't have an account? <Link to="/signup">Sign Up</Link></p>
       {loading && (
         <Loader>
           <div />
