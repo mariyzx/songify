@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { Button, Label } from '../styles/components/Form';
 import Header from '../components/Header';
 import MainSignUp from '../styles/pages/SignUp';
