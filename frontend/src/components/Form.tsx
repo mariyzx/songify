@@ -9,7 +9,7 @@ import Loader from '../styles/components/Loader';
 
 const schema = z.object({
   email: z.string().email().min(3),
-  name: z.string().min(3),
+  password: z.string().min(6),
 });
 
 type SchemaType = z.infer<typeof schema>;
@@ -30,7 +30,7 @@ function Form() {
   const handleLogin = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setLoading(true);
-    createUser(getValues());
+    //createUser(getValues());
     setLoading(false);
     navigate('/search');
   };
@@ -46,13 +46,13 @@ function Form() {
           {...register('email')}
         />
       </Label>
-      <Label htmlFor="name">
-        <h4>Name</h4>
+      <Label htmlFor="password">
+        <h4>Password</h4>
         <input
           type="text"
-          id="name"
-          placeholder="Ada Lovelace"
-          {...register('name')}
+          id="password"
+          placeholder="******"
+          {...register('password')}
         />
       </Label>
       <Button

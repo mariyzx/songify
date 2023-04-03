@@ -10,11 +10,12 @@ import { IFavorite } from '../interfaces/IFavorites';
 import light from '../styles/themes/light';
 import dark from '../styles/themes/dark';
 import usePersistedState from '../utils/usePersistedState';
+import api from '../api/api';
 
 function Provider({ children }: any) {
   const emptyUser = {
-    name: '',
     email: '',
+    password: '',
     image: '',
     description: '',
   };
@@ -35,6 +36,7 @@ function Provider({ children }: any) {
 
   const createUser = (data: IUser): ICreatedUser => {
     const info = { ...emptyUser, ...data };
+    api.post('register').then((res) => console.log(res))
     localStorage.setItem('user', JSON.stringify(info));
     localStorage.setItem('favorite_songs', JSON.stringify([]));
     setUser(info);
