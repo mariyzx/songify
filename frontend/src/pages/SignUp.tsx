@@ -79,7 +79,7 @@ function SignUp() {
             Sign Up
           </Button>
         </form>
-        {statusCode !== 201 ? <p>Error while trying to sign up!</p> : null}
+        {statusCode}
       </MainSignUp>
     </div>
   );
