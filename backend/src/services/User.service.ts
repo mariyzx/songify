@@ -3,6 +3,7 @@ import { ILoginCredentials, ILoginResponse } from '../interfaces/ILogin';
 import { IRegisterCredentials, IRegisterUser } from '../interfaces/IRegister';
 import { IUserRepository } from '../interfaces/repositories/UserRepository';
 import { jwtGen } from '../utils/jwt';
+import { IFavoriteSongsParam } from '../interfaces/IFavoriteSongs';
 
 export default class RegisterService {
 	constructor(
@@ -33,5 +34,12 @@ export default class RegisterService {
 		const token = jwtGen({ email });
 
 		return { ...userWithoutPass, token };
+	}
+
+	async addToFav(data: IFavoriteSongsParam) {
+		// user precisa existr
+		const fav = await this.userRepository.addToFav(data);
+
+		return fav;
 	}
 }
