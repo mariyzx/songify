@@ -29,7 +29,7 @@ function Provider({ children }: any) {
   const [artistName, setArtistName] = useState('');
   const [songs, setSongs] = useState([]);
   const [favSongs, setFavSongs] = useState<IFavorite[]>([]);
-  const [statusCode, setStatusCode] = useState(201);
+  const [statusCode, setStatusCode] = useState('');
 
   const toggleTheme = () => {
     setTheme(theme.title === 'light' ? dark : light);
@@ -40,12 +40,25 @@ function Provider({ children }: any) {
     api
       .post('register', data)
       .then((res) => {
+        setStatusCode(res.statusText);
         const { password: _, ...userWithoutPass } = info;
         setUser(userWithoutPass);
-        setStatusCode(res.status);
         return userWithoutPass;
       })
-      .catch((err) => setStatusCode(err.response.status));
+      .catch((err) => setStatusCode(err.response.data.message));
+  };
+
+  const login = (data: IUser) => {
+    api
+      .post('login', data)
+      .then((res) => {
+        setUser(res.data);
+        setStatusCode('OK');
+        return user;
+      })
+      .catch((err) => {
+        setStatusCode(err.response.data.message);
+      });
   };
 
   const getAlbums = async (artist: string) => {
@@ -123,6 +136,7 @@ function Provider({ children }: any) {
     theme,
     createUser,
     statusCode,
+    login,
     user,
     getAlbums,
     empty,
