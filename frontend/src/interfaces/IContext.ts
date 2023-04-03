@@ -8,8 +8,9 @@ export interface IContext {
   toggleTheme(): void;
   theme: DefaultTheme;
   createUser(data: IUser): void;
+  login(data: IUser): void;
   user: ICreatedUser;
-  statusCode: number;
+  statusCode: string;
   loading: boolean;
   albums: Array<IAlbum>;
   empty: boolean;
