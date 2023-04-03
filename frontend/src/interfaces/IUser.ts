@@ -3,7 +3,7 @@ export interface IUser {
   password: string;
 }
 
-export interface ICreatedUser extends IUser {
+export interface ICreatedUser extends Omit<IUser, 'password'> {
   image: string;
   description: string;
 }
