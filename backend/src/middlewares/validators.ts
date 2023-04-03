@@ -26,3 +26,23 @@ export const validateLogin = async (req: Request, res: Response, next: NextFunct
 	next();
 };
 
+export const validateFavSongs  = async (req: Request, res: Response, next: NextFunction) => {
+	const schema = Joi.object({
+		user: Joi.object({
+			email: Joi.string().email().required()
+		}),
+		songs: Joi.array().items(
+			Joi.object({
+				id: Joi.number().min(1).required(),
+				title: Joi.string().min(1).required(),
+				artist: Joi.string().min(1).required(),
+				album: Joi.string().min(1).required(),
+			})
+		)
+	});
+  
+	const { error } = schema.validate(req.body);
+	if (error) res.status(400).json({message: error.details[0].message});
+
+	next();
+};
