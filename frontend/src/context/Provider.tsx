@@ -29,18 +29,23 @@ function Provider({ children }: any) {
   const [artistName, setArtistName] = useState('');
   const [songs, setSongs] = useState([]);
   const [favSongs, setFavSongs] = useState<IFavorite[]>([]);
+  const [statusCode, setStatusCode] = useState(201);
 
   const toggleTheme = () => {
     setTheme(theme.title === 'light' ? dark : light);
   };
 
-  const createUser = (data: IUser): ICreatedUser => {
+  const createUser = (data: IUser): void => {
     const info = { ...emptyUser, ...data };
-    api.post('register').then((res) => console.log(res))
-    localStorage.setItem('user', JSON.stringify(info));
-    localStorage.setItem('favorite_songs', JSON.stringify([]));
-    setUser(info);
-    return info;
+    api
+      .post('register', data)
+      .then((res) => {
+        const { password: _, ...userWithoutPass } = info;
+        setUser(userWithoutPass);
+        setStatusCode(res.status);
+        return userWithoutPass;
+      })
+      .catch((err) => setStatusCode(err.response.status));
   };
 
   const getAlbums = async (artist: string) => {
@@ -117,6 +122,7 @@ function Provider({ children }: any) {
     toggleTheme,
     theme,
     createUser,
+    statusCode,
     user,
     getAlbums,
     empty,
