@@ -1,5 +1,4 @@
-import { IFavoriteSongs, IFavoriteSongsParam } from '../interfaces/IFavoriteSongs';
-import { ILoginCredentials } from '../interfaces/ILogin';
+import { IFavoriteSongs, IFavoriteSongsParam, IFavoriteSongsResponse } from '../interfaces/IFavoriteSongs';
 import { IRegisterCredentials, IRegisterUser } from '../interfaces/IRegister';
 import { IUserRepository } from '../interfaces/repositories/UserRepository';
 import Prisma from '../model';
@@ -15,10 +14,10 @@ export class UserRepository implements IUserRepository {
 		}));
 	}
 
-	async findUser(data: ILoginCredentials): Promise<IRegisterUser | null> {
+	async findUser(email: string): Promise<IRegisterUser | null> {
 		return (await Prisma.user.findUnique({
 			where: {
-				email: data.email
+				email
 			}
 		}));
 	}
@@ -37,7 +36,7 @@ export class UserRepository implements IUserRepository {
 		return createdSongs;
 	}
 
-	async addToFav(data: IFavoriteSongsParam) {
+	async addToFav(data: IFavoriteSongsParam): Promise<IFavoriteSongsResponse> {
 		const { user: { email }, songs } = data;
 		const songIds = songs.map(song => song.id);
 
@@ -68,6 +67,9 @@ export class UserRepository implements IUserRepository {
 				favoriteSongs: {
 					connect: existingSongs.map(song => ({ id: song.id })),
 				}
+			},
+			include: {
+				'favoriteSongs': true
 			}
 		});
 
