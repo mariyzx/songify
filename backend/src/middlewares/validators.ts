@@ -63,7 +63,6 @@ export const validateFavSongs  = async (req: AuthenticatedRequest, res: Response
 		}),
 		songs: Joi.array().items(
 			Joi.object({
-				id: Joi.number().min(1).required(),
 				title: Joi.string().min(1).required(),
 				artist: Joi.string().min(1).required(),
 				album: Joi.string().min(1).required(),
