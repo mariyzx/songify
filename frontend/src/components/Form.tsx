@@ -17,7 +17,7 @@ type SchemaType = z.infer<typeof schema>;
 function Form() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { createUser } = useContext(Context);
+  const { login, statusCode, user } = useContext(Context);
   const {
     register,
     formState: { isDirty, isValid },
@@ -30,9 +30,10 @@ function Form() {
   const handleLogin = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setLoading(true);
-    //createUser(getValues());
+    login(getValues());
+    // aqui precisa de correção, está 1 click atrasado
+    statusCode === 'OK' ? navigate('/search') : null; 
     setLoading(false);
-    navigate('/search');
   };
 
   return (
@@ -49,7 +50,7 @@ function Form() {
       <Label htmlFor="password">
         <h4>Password</h4>
         <input
-          type="text"
+          type="password"
           id="password"
           placeholder="******"
           {...register('password')}
@@ -62,7 +63,10 @@ function Form() {
       >
         Sign In
       </Button>
-      <p>Doesn't have an account? <Link to="/signup">Sign Up</Link></p>
+      <p>
+        Don&apos;t have an account? <Link to="/signup">Sign Up</Link>
+      </p>
+      {statusCode}
       {loading && (
         <Loader>
           <div />
