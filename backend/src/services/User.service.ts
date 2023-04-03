@@ -3,7 +3,7 @@ import { ILoginCredentials, ILoginResponse } from '../interfaces/ILogin';
 import { IRegisterCredentials, IRegisterUser } from '../interfaces/IRegister';
 import { IUserRepository } from '../interfaces/repositories/UserRepository';
 import { jwtGen } from '../utils/jwt';
-import { IFavoriteSongsParam } from '../interfaces/IFavoriteSongs';
+import { IFavoriteSongsParam, IFavoriteSongsResponseWithoutPass } from '../interfaces/IFavoriteSongs';
 
 export default class RegisterService {
 	constructor(
@@ -12,7 +12,7 @@ export default class RegisterService {
 
 	async register(user: IRegisterCredentials): Promise<IRegisterUser | null> {
 		// verifica se o usuário já existe
-		const userExists = await this.userRepository.findUser(user);
+		const userExists = await this.userRepository.findUser(user.email);
 		//  return { status: 409, message: 'User already registered' };
 		if (userExists) return null;
 
@@ -24,7 +24,7 @@ export default class RegisterService {
 
 	
 	async login(user: ILoginCredentials): Promise<ILoginResponse | null> {
-		const userExists = await this.userRepository.findUser(user);
+		const userExists = await this.userRepository.findUser(user.email);
 		const { email, password } = user;
 		const pass = md5(password);
 
@@ -36,10 +36,15 @@ export default class RegisterService {
 		return { ...userWithoutPass, token };
 	}
 
-	async addToFav(data: IFavoriteSongsParam) {
+	async addToFav(data: IFavoriteSongsParam): Promise<IFavoriteSongsResponseWithoutPass | null> {
 		// user precisa existr
-		const fav = await this.userRepository.addToFav(data);
+		const { user } = data;
+		const userExists = await this.userRepository.findUser(user.email);
+		if (!userExists) return null;
 
-		return fav;
+		const fav = await this.userRepository.addToFav(data);
+		const { password: _, ...userWithoutPass} = fav;
+
+		return userWithoutPass;
 	}
 }
