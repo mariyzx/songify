@@ -7,8 +7,9 @@ import { IUser, ICreatedUser } from './IUser';
 export interface IContext {
   toggleTheme(): void;
   theme: DefaultTheme;
-  createUser(data: IUser): ICreatedUser;
+  createUser(data: IUser): void;
   user: ICreatedUser;
+  statusCode: number;
   loading: boolean;
   albums: Array<IAlbum>;
   empty: boolean;
