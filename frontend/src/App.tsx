@@ -10,11 +10,13 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import GlobalStyle from './styles/globalStyles';
 import Context from './context/Context';
+import SignUp from './pages/SignUp';
 
 export function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/signup" element={<SignUp />} />
       <Route path="/search" element={<Search />} />
       <Route path="/album/:id" element={<Album />} />
       <Route path="/favorites" element={<Favorites />} />
