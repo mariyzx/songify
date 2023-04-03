@@ -11,3 +11,13 @@ export interface IFavoriteSongsParam {
   },
   songs: IFavoriteSongs[]
 }
+
+export interface IFavoriteSongsResponseWithoutPass {
+  name: string,
+  email: string,
+  favoriteSongs?: IFavoriteSongs[]
+}
+
+export interface IFavoriteSongsResponse extends IFavoriteSongsResponseWithoutPass {
+  password: string
+}
