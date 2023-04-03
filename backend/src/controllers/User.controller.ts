@@ -26,6 +26,8 @@ export default class RegisterController {
 
 	async addToFav(req: Request, res: Response) {
 		const fav = await this.userService.addToFav(req.body);
+		
+		if (!fav) return res.status(400).json({ message: 'User not found!' });
 
 		return res.status(200).json(fav);
 	}
