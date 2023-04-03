@@ -23,4 +23,10 @@ export default class RegisterController {
 
 		return res.status(200).json(user);
 	}
+
+	async addToFav(req: Request, res: Response) {
+		const fav = await this.userService.addToFav(req.body);
+
+		return res.status(200).json(fav);
+	}
 }
