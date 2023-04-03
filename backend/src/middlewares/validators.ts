@@ -1,5 +1,35 @@
 import { NextFunction, Request, Response } from 'express';
 import Joi from 'joi';
+import { jwtVerify } from '../utils/jwt';
+
+interface AuthenticatedRequest extends Request {
+  user?: any;
+}
+
+export const authMiddleware = (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+	const token = req.header('Authorization');
+
+	if (!token) {
+		return res.status(401).send({ message: 'Token not found' });
+	}
+
+	try {
+		const decoded = jwtVerify(token);
+
+		req.user = decoded;
+
+		const { email } = req.body.user;
+	
+		if (email !== req.user.email) {
+			return res.status(401).send({ message: 'Error while trying to validate token' });
+		}
+
+		next();
+	} catch (error) {
+		return res.status(401).send({ message: 'Invalid token' });
+	}
+};
+
 
 export const validateRegister = async (req: Request, res: Response, next: NextFunction) => {
 	const schema = Joi.object({
@@ -26,7 +56,7 @@ export const validateLogin = async (req: Request, res: Response, next: NextFunct
 	next();
 };
 
-export const validateFavSongs  = async (req: Request, res: Response, next: NextFunction) => {
+export const validateFavSongs  = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
 	const schema = Joi.object({
 		user: Joi.object({
 			email: Joi.string().email().required()
