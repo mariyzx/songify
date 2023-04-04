@@ -2,13 +2,13 @@ import { DefaultTheme } from 'styled-components';
 import { IAlbum } from './IAlbum';
 import { IFavorite } from './IFavorites';
 import { ITrack } from './ISongs';
-import { IUser, ICreatedUser } from './IUser';
+import { IUser, ICreatedUser, ILogin } from './IUser';
 
 export interface IContext {
   toggleTheme(): void;
   theme: DefaultTheme;
   createUser(data: IUser): void;
-  login(data: IUser): void;
+  login(data: IUser): Promise<ILogin>;
   user: ICreatedUser;
   statusCode: string;
   loading: boolean;
