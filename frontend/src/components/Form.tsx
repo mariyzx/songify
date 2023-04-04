@@ -17,7 +17,7 @@ type SchemaType = z.infer<typeof schema>;
 function Form() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { login, statusCode, user } = useContext(Context);
+  const { login, statusCode } = useContext(Context);
   const {
     register,
     formState: { isDirty, isValid },
@@ -27,12 +27,19 @@ function Form() {
     mode: 'onChange',
   });
 
-  const handleLogin = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    if (loading) {
+      return; // Evita que o botão seja pressionado várias vezes seguidas
+    }
     setLoading(true);
-    login(getValues());
-    // aqui precisa de correção, está 1 click atrasado
-    statusCode === 'OK' ? navigate('/search') : null; 
+    const response = await login(getValues());
+    if (response.status === 'OK') {
+      navigate('/search');
+    } else {
+      console.log('error:', response.status);
+    }
+    // setStatusCode(null);
     setLoading(false);
   };
 
@@ -57,8 +64,8 @@ function Form() {
         />
       </Label>
       <Button
-        type="submit"
-        disabled={!isDirty || !isValid}
+        type="button"
+        disabled={!isDirty || !isValid || loading}
         onClick={(e) => handleLogin(e)}
       >
         Sign In
@@ -66,11 +73,13 @@ function Form() {
       <p>
         Don&apos;t have an account? <Link to="/signup">Sign Up</Link>
       </p>
-      {statusCode}
-      {loading && (
+
+      {loading ? (
         <Loader>
           <div />
         </Loader>
+      ) : (
+        <p>{statusCode}</p>
       )}
     </HomeForm>
   );
