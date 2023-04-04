@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { DefaultTheme } from 'styled-components';
 import Context from './Context';
-import { ICreatedUser, IUser } from '../interfaces/IUser';
+import { ICreatedUser, ILogin, IUser } from '../interfaces/IUser';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import getMusics from '../services/searchSongsAPI';
 import addToLocal from '../services/favoriteSongsAPI';
@@ -48,17 +48,16 @@ function Provider({ children }: any) {
       .catch((err) => setStatusCode(err.response.data.message));
   };
 
-  const login = (data: IUser) => {
-    api
-      .post('login', data)
-      .then((res) => {
-        setUser(res.data);
-        setStatusCode('OK');
-        return user;
-      })
-      .catch((err) => {
-        setStatusCode(err.response.data.message);
-      });
+  const login = async (data: IUser): Promise<ILogin> => {
+    try {
+      const response = await api.post('login', data);
+      setStatusCode('');
+      setUser(response.data);
+      return { status: 'OK' };
+    } catch (err) {
+      setStatusCode('User not found');
+      return { status: 'User not found!' };
+    }
   };
 
   const getAlbums = async (artist: string) => {
@@ -137,6 +136,7 @@ function Provider({ children }: any) {
     createUser,
     statusCode,
     login,
+    setStatusCode,
     user,
     getAlbums,
     empty,
