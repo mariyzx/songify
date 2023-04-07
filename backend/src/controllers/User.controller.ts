@@ -33,11 +33,11 @@ export default class RegisterController {
 	}
 
 	async getSongs(req: Request, res: Response) {
-		const { email } = req.body;
+		const { email } = req.query;
 
 		if (!email) return res.status(400).json({ message: 'Empty fields'});
 
-		const favs = await this.userService.getSongs(email);
+		const favs = await this.userService.getSongs(email as string);
 
 		if (!favs) return res.status(400).json({ message: 'User not found!'});
 
