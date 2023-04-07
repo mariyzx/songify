@@ -75,4 +75,19 @@ export class UserRepository implements IUserRepository {
 
 		return updatedUser;
 	}
+
+	async getSongs(email: string): Promise<IFavoriteSongs[] | null> {
+		const user = await Prisma.user.findUnique({
+			where: {
+				email
+			},
+			include: {
+				favoriteSongs: true
+			}
+		});
+
+		if (!user) return null;
+
+		return user.favoriteSongs;
+	}
 }
