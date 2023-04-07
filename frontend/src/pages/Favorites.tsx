@@ -5,10 +5,11 @@ import Context from '../context/Context';
 import MainFavorites from '../styles/pages/Favorites';
 
 function Favorites() {
-  const { favSongs, getFavs, loading } = useContext(Context);
+  const { favSongs, getFavs, loading, user } = useContext(Context);
 
   useEffect(() => {
-    getFavs();
+    const { email } = user;
+    getFavs(email);
   }, []);
 
   return (
@@ -17,7 +18,7 @@ function Favorites() {
       <MainFavorites>
         <h1>Favorites</h1>
         {!loading &&
-          favSongs.map((fav) => <ListFavs song={fav} key={fav.previewUrl} />)}
+          favSongs.map((fav) => <ListFavs song={fav} key={fav.id} />)}
       </MainFavorites>
     </div>
   );
