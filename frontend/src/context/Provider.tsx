@@ -93,7 +93,7 @@ function Provider({ children }: any) {
       setLoading(true);
       if (favs) {
         const songExistInFav = favs.filter(
-          (fav: IFavorite) => fav.trackName === song.trackName
+          (fav: IFavorite) => fav.title === song.trackName
         );
         if (songExistInFav.length === 0) {
           const favorites = addToLocal([...favs, song]);
@@ -110,7 +110,7 @@ function Provider({ children }: any) {
     try {
       setLoading(true);
       const newFavs = favs.filter(
-        (fav: IFavorite) => fav.trackName !== song.trackName
+        (fav: IFavorite) => fav.title !== song.trackName
       );
       addToLocal(newFavs);
       setFavSongs(newFavs);
@@ -120,13 +120,20 @@ function Provider({ children }: any) {
     }
   };
 
-  const getFavs = () => {
+  const getFavs = async (email: string) => {
     try {
-      setLoading(true);
-      setFavSongs(favs);
-      setLoading(false);
+      const response = await api.get('favorite', {
+        params: {
+          email,
+        },
+      });
+      setStatusCode('');
+      setFavSongs(response.data);
+      return { status: 'OK' };
     } catch (err) {
       console.log(err);
+      setStatusCode('User not found');
+      return { status: 'User not found!' };
     }
   };
 
