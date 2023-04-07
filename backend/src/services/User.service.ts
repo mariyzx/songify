@@ -3,7 +3,7 @@ import { ILoginCredentials, ILoginResponse } from '../interfaces/ILogin';
 import { IRegisterCredentials, IRegisterUser } from '../interfaces/IRegister';
 import { IUserRepository } from '../interfaces/repositories/UserRepository';
 import { jwtGen } from '../utils/jwt';
-import { IFavoriteSongsParam, IFavoriteSongsResponseWithoutPass } from '../interfaces/IFavoriteSongs';
+import { IFavoriteSongs, IFavoriteSongsParam, IFavoriteSongsResponseWithoutPass } from '../interfaces/IFavoriteSongs';
 
 export default class RegisterService {
 	constructor(
@@ -46,5 +46,15 @@ export default class RegisterService {
 		const { password: _, ...userWithoutPass} = fav;
 
 		return userWithoutPass;
+	}
+
+	async getSongs(email: string): Promise<IFavoriteSongs[] | null> {
+		const userExists = await this.userRepository.findUser(email);
+
+		if (!userExists) return null;
+
+		const favoriteSongs = await this.userRepository.getSongs(email);
+
+		return favoriteSongs;
 	}
 }
