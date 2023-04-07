@@ -21,5 +21,5 @@ export interface IContext {
   addToFav(song: object): void;
   removeToFav(song: object): void;
   favSongs: Array<IFavorite>;
-  getFavs(): void;
+  getFavs(email: string): void;
 }
