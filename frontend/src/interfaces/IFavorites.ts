@@ -1,8 +1,8 @@
 export interface IFavorite {
-  artistName: string;
-  artworkUrl100: string;
-  previewUrl: string;
-  trackName: string;
+  id: number;
+  title: string;
+  artist: string;
+  album: string;
 }
 
 export interface IFavoriteProps {
