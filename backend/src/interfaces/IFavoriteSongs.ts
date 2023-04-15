@@ -2,6 +2,7 @@ export interface IFavoriteSongs {
   id: number,
   title: string,
   artist: string,
+  previewUrl: string,
   album: string,
 }
 
