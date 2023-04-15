@@ -10,12 +10,13 @@ import Audio from '../styles/components/Audio';
 
 function SongsCard(props: IProps) {
   const { song } = props;
-  const { addToFav, removeToFav, theme } = useContext(Context);
+  const { addToFav, removeToFav, theme, getFavs, user, favSongs } =
+    useContext(Context);
   const [fav, setFav] = useState(false);
+  const { trackName, previewUrl, artistName, artworkUrl100, collectionName } =
+    song;
 
   const addFav = ({ target }: ITarget) => {
-    const { trackName, previewUrl, artistName, artworkUrl100, collectionName } =
-      song;
     if (target.checked) {
       addToFav({
         title: trackName,
@@ -29,14 +30,8 @@ function SongsCard(props: IProps) {
   };
 
   useEffect(() => {
-    const locals = localStorage.getItem('favorite_songs');
-    if (locals) {
-      const favSong = JSON.parse(locals).find(
-        (local: IFavorite) => local.title === song.trackName
-      );
-      setFav(favSong);
-    }
-  }, [fav]);
+    getFavs(user.email);
+  }, []);
 
   return (
     <DivSongs data-testid="songs">
@@ -45,21 +40,18 @@ function SongsCard(props: IProps) {
         <track kind="caption" />
         Your browser doesn&apos;t support the element! <code>Audio</code>
       </Audio>
-      <label htmlFor="favorite" data-testid="fav_input">
-        <HeartSwitch
-          size="sm"
-          inactiveTrackFillColor={lighten(0.2, theme.colors.secondary)}
-          inactiveTrackStrokeColor={theme.colors.secondary}
-          activeTrackFillColor={theme.colors.secondary}
-          activeTrackStrokeColor={theme.colors.secondary}
-          inactiveThumbColor="#ecfeff"
-          activeThumbColor="#ecfeff"
-          name="favorite"
-          onChange={(e) => addFav(e)}
-          checked={fav}
-        />
-        {/* {fav ? <MdFavorite /> : <MdFavoriteBorder />} */}
-      </label>
+      <HeartSwitch
+        size="sm"
+        inactiveTrackFillColor={lighten(0.2, theme.colors.secondary)}
+        inactiveTrackStrokeColor={theme.colors.secondary}
+        activeTrackFillColor={theme.colors.secondary}
+        activeTrackStrokeColor={theme.colors.secondary}
+        inactiveThumbColor="#ecfeff"
+        activeThumbColor="#ecfeff"
+        name="favorite"
+        onChange={(e) => addFav(e)}
+        checked={favSongs.some((fv) => fv.title === trackName)}
+      />
     </DivSongs>
   );
 }
