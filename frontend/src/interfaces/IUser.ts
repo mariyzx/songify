@@ -6,6 +6,7 @@ export interface IUser {
 export interface ICreatedUser extends Omit<IUser, 'password'> {
   image: string;
   description: string;
+  token: string;
 }
 
 export interface ILogin {
