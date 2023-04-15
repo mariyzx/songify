@@ -2,6 +2,7 @@ export interface IFavorite {
   id: number;
   title: string;
   artist: string;
+  previewUrl: string;
   album: string;
 }
 
