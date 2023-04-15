@@ -14,9 +14,15 @@ function SongsCard(props: IProps) {
   const [fav, setFav] = useState(false);
 
   const addFav = ({ target }: ITarget) => {
-    const { trackName, previewUrl, artistName, artworkUrl100 } = song;
+    const { trackName, previewUrl, artistName, artworkUrl100, collectionName } =
+      song;
     if (target.checked) {
-      addToFav({ trackName, previewUrl, artistName, artworkUrl100 });
+      addToFav({
+        title: trackName,
+        previewUrl,
+        artist: artistName,
+        album: collectionName,
+      });
     } else {
       removeToFav({ trackName, previewUrl, artistName, artworkUrl100 });
     }
@@ -26,7 +32,7 @@ function SongsCard(props: IProps) {
     const locals = localStorage.getItem('favorite_songs');
     if (locals) {
       const favSong = JSON.parse(locals).find(
-        (local: IFavorite) => local.trackName === song.trackName
+        (local: IFavorite) => local.title === song.trackName
       );
       setFav(favSong);
     }
