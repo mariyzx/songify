@@ -66,6 +66,7 @@ export const validateFavSongs  = async (req: AuthenticatedRequest, res: Response
 				title: Joi.string().min(1).required(),
 				artist: Joi.string().min(1).required(),
 				album: Joi.string().min(1).required(),
+				previewUrl: Joi.string().min(1).required()
 			})
 		)
 	});
