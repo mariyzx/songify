@@ -28,7 +28,8 @@ export class UserRepository implements IUserRepository {
 				data: {
 					title: song.title,
 					artist: song.artist,
-					album: song.album
+					album: song.album,
+					previewUrl: song.previewUrl
 				}
 			})
 		));
