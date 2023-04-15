@@ -22,6 +22,7 @@ model Songs {
   id      Int     @id @default(autoincrement())
   title   String
   artist  String
+  previewUrl String
   album   String
   users   User[]  @relation(name: "Favorite_Songs")
 }
