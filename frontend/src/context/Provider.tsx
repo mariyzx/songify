@@ -18,6 +18,7 @@ function Provider({ children }: any) {
     password: '',
     image: '',
     description: '',
+    token: '',
   };
   const favs = JSON.parse(localStorage.getItem('favorite_songs')!);
 
@@ -53,6 +54,7 @@ function Provider({ children }: any) {
       const response = await api.post('login', data);
       setStatusCode('');
       setUser(response.data);
+      localStorage.setItem('token', JSON.stringify(response.data.token));
       return { status: 'OK' };
     } catch (err) {
       setStatusCode('User not found');
@@ -88,18 +90,21 @@ function Provider({ children }: any) {
     }
   };
 
-  const addToFav = (song: ITrack) => {
+  const addToFav = async (song: ITrack) => {
     try {
       setLoading(true);
-      if (favs) {
-        const songExistInFav = favs.filter(
-          (fav: IFavorite) => fav.title === song.trackName
-        );
-        if (songExistInFav.length === 0) {
-          const favorites = addToLocal([...favs, song]);
-          setFavSongs(favorites);
-        }
-      }
+      const param = {
+        user: {
+          email: user.email,
+        },
+        songs: [song],
+      };
+      const token = JSON.parse(localStorage.getItem('token')!);
+      await api.patch('favorite', param, {
+        headers: {
+          Authorization: `${token}`,
+        },
+      });
       setLoading(false);
     } catch (err) {
       console.log(err);
