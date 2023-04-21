@@ -14,6 +14,7 @@ import api from '../api/api';
 
 function Provider({ children }: any) {
   const emptyUser = {
+    name: '',
     email: '',
     password: '',
     image: '',
@@ -43,7 +44,7 @@ function Provider({ children }: any) {
       .then((res) => {
         setStatusCode(res.statusText);
         const { password: _, ...userWithoutPass } = info;
-        setUser(userWithoutPass);
+        setUser({ ...userWithoutPass, name: '' });
         return userWithoutPass;
       })
       .catch((err) => setStatusCode(err.response.data.message));
@@ -55,6 +56,7 @@ function Provider({ children }: any) {
       setStatusCode('');
       setUser(response.data);
       localStorage.setItem('token', JSON.stringify(response.data.token));
+      localStorage.setItem('user', JSON.stringify(response.data));
       return { status: 'OK' };
     } catch (err) {
       setStatusCode('User not found');
