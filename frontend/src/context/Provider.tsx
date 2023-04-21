@@ -111,14 +111,22 @@ function Provider({ children }: any) {
     }
   };
 
-  const removeToFav = (song: ITrack) => {
+  const removeToFav = async (song: ITrack) => {
     try {
       setLoading(true);
-      const newFavs = favs.filter(
-        (fav: IFavorite) => fav.title !== song.trackName
-      );
-      addToLocal(newFavs);
-      setFavSongs(newFavs);
+      const data = {
+        user: {
+          email: user.email,
+        },
+        songs: [song],
+      };
+      const token = JSON.parse(localStorage.getItem('token')!);
+      await api.delete('favorite', {
+        headers: {
+          Authorization: `${token}`,
+        },
+        data,
+      });
       setLoading(false);
     } catch (err) {
       console.log(err);
