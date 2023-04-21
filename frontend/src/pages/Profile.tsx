@@ -10,6 +10,7 @@ function Profile() {
     email: '',
     image: '',
     description: '',
+    token: '',
   };
 
   const [user, setUser] = useState<ICreatedUser>(emptyUser);
