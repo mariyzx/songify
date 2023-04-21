@@ -29,7 +29,7 @@ export default class RegisterController {
 		
 		if (!fav) return res.status(400).json({ message: 'User not found!' });
 
-		return res.status(200).json(fav);
+		return res.status(201).json(fav);
 	}
 
 	async getSongs(req: Request, res: Response) {
@@ -42,5 +42,13 @@ export default class RegisterController {
 		if (!favs) return res.status(400).json({ message: 'User not found!'});
 
 		return res.status(200).json(favs);
+	}
+ 
+	async removeSong(req: Request, res: Response) {
+		const rmv = await this.userService.removeToFav(req.body);
+
+		if (!rmv) return res.status(400).json({ message: 'User not found!' });
+
+		return res.status(201).json(rmv);
 	}
 }
