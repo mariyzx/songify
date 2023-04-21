@@ -57,4 +57,16 @@ export default class RegisterService {
 
 		return favoriteSongs;
 	}
+
+	async removeToFav(data: IFavoriteSongsParam): Promise<IFavoriteSongsResponseWithoutPass | null> {
+		const { user } = data;
+		const userExists = await this.userRepository.findUser(user.email);
+		if (!userExists) return null;
+
+		const removeSong = await this.userRepository.removeToFav(data);
+
+		const { password: _, ...userWithoutPass} = removeSong;
+
+		return userWithoutPass;
+	}
 }
