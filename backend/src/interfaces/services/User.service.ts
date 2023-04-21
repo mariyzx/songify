@@ -7,4 +7,5 @@ export interface IUserService {
   login(user: ILoginCredentials): Promise<ILoginResponse | null>
   addToFav(data: IFavoriteSongsParam): Promise<IFavoriteSongsResponseWithoutPass | null>
   getSongs(email: string): Promise<IFavoriteSongs[] | null>
+  removeToFav(data: IFavoriteSongsParam): Promise<IFavoriteSongsResponseWithoutPass | null>
 }
