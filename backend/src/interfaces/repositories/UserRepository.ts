@@ -6,4 +6,5 @@ export interface IUserRepository {
   findUser(email: string): Promise<IRegisterUser | null>
   addToFav(data: IFavoriteSongsParam): Promise<IFavoriteSongsResponse>
   getSongs(email: string): Promise<IFavoriteSongs[] | null>
+  removeToFav(data: IFavoriteSongsParam): Promise<IFavoriteSongsResponse>
 }
