@@ -1,10 +1,9 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { HeartSwitch } from '@anatoliygatt/heart-switch';
 import { lighten } from 'polished';
 import Context from '../context/Context';
 import { ITarget } from '../interfaces/IHandleTarget';
 import { IProps } from '../interfaces/ISongs';
-import { IFavorite } from '../interfaces/IFavorites';
 import { DivSongs } from '../styles/components/SongsCard';
 import Audio from '../styles/components/Audio';
 
@@ -12,9 +11,7 @@ function SongsCard(props: IProps) {
   const { song } = props;
   const { addToFav, removeToFav, theme, getFavs, user, favSongs } =
     useContext(Context);
-  const [fav, setFav] = useState(false);
-  const { trackName, previewUrl, artistName, artworkUrl100, collectionName } =
-    song;
+  const { trackName, previewUrl, artistName, collectionName } = song;
 
   const addFav = ({ target }: ITarget) => {
     if (target.checked) {
@@ -25,7 +22,12 @@ function SongsCard(props: IProps) {
         album: collectionName,
       });
     } else {
-      removeToFav({ trackName, previewUrl, artistName, artworkUrl100 });
+      removeToFav({
+        title: trackName,
+        previewUrl,
+        artist: artistName,
+        album: collectionName,
+      });
     }
   };
 
