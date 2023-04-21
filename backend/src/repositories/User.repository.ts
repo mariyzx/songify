@@ -91,4 +91,36 @@ export class UserRepository implements IUserRepository {
 
 		return user.favoriteSongs;
 	}
+
+	async removeToFav(data: IFavoriteSongsParam): Promise<IFavoriteSongsResponse> {
+		const { user: { email }, songs } = data;
+
+		const song = await Prisma.songs.findFirst({
+			where: {
+				OR: songs.map((song) => ({
+					title: song.title,
+				})),
+			},
+			select: {
+				id: true,
+			},
+		});
+		
+
+		const updatedUser = await Prisma.user.update({
+			where: {
+				email
+			},
+			data: {
+				favoriteSongs: {
+					disconnect: { id: song?.id },
+				}
+			},
+			include: {
+				'favoriteSongs': true
+			}
+		});
+
+		return updatedUser;
+	}
 }
