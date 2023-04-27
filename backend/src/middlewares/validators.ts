@@ -30,7 +30,6 @@ export const authMiddleware = (req: AuthenticatedRequest, res: Response, next: N
 	}
 };
 
-
 export const validateRegister = async (req: Request, res: Response, next: NextFunction) => {
 	const schema = Joi.object({
 		email:  Joi.string().email().required(),
@@ -70,6 +69,21 @@ export const validateFavSongs  = async (req: AuthenticatedRequest, res: Response
 				previewUrl: Joi.string().min(1).required()
 			})
 		)
+	});
+  
+	const { error } = schema.validate(req.body);
+	if (error) return res.status(400).json({message: error.details[0].message});
+
+	next();
+};
+
+export const validateUpdate  = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+	const schema = Joi.object({
+		user: Joi.object({
+			email: Joi.string().email().min(1).required(),
+			name: Joi.string().min(1),
+			description: Joi.string().min(1)
+		})
 	});
   
 	const { error } = schema.validate(req.body);
