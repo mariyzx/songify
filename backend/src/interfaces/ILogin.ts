@@ -11,3 +11,13 @@ export interface ILoginResponse {
   token: string;
   favoriteSongs?: IFavoriteSongs[] 
 }
+
+export interface ILoginUpdate {
+  email: string;
+  description: string;
+  name: string;
+}
+
+export interface ILoginUpdateResponse extends Omit<ILoginResponse, 'token'> {
+  description: string | null;
+}
