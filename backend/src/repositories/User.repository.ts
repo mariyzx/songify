@@ -1,4 +1,5 @@
 import { IFavoriteSongs, IFavoriteSongsParam, IFavoriteSongsResponse } from '../interfaces/IFavoriteSongs';
+import { ILoginUpdate, ILoginUpdateResponse } from '../interfaces/ILogin';
 import { IRegisterCredentials, IRegisterUser } from '../interfaces/IRegister';
 import { IUserRepository } from '../interfaces/repositories/UserRepository';
 import Prisma from '../model';
@@ -120,6 +121,24 @@ export class UserRepository implements IUserRepository {
 				'favoriteSongs': true
 			}
 		});
+
+		return updatedUser;
+	}
+
+	async updateUser(data: ILoginUpdate): Promise<ILoginUpdateResponse> {
+		const updatedUser = await Prisma.user.update({
+			where: {
+				email: data.email,
+			},
+			data: {
+				description: data.description,
+				name: data.name
+			},
+			include: {
+				'favoriteSongs': true
+			}
+		});
+	
 
 		return updatedUser;
 	}
