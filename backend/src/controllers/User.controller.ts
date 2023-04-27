@@ -19,7 +19,7 @@ export default class RegisterController {
 
 		const user = await this.userService.login({ email, password });
 
-		if (!user) return res.status(400).json({ message: 'User not found!' });
+		if (!user) return res.status(404).json({ message: 'User not found!' });
 
 		return res.status(200).json(user);
 	}
@@ -27,7 +27,7 @@ export default class RegisterController {
 	async addToFav(req: Request, res: Response) {
 		const fav = await this.userService.addToFav(req.body);
 		
-		if (!fav) return res.status(400).json({ message: 'User not found!' });
+		if (!fav) return res.status(404).json({ message: 'User not found!' });
 
 		return res.status(201).json(fav);
 	}
@@ -39,7 +39,7 @@ export default class RegisterController {
 
 		const favs = await this.userService.getSongs(email as string);
 
-		if (!favs) return res.status(400).json({ message: 'User not found!'});
+		if (!favs) return res.status(404).json({ message: 'User not found!'});
 
 		return res.status(200).json(favs);
 	}
@@ -47,8 +47,18 @@ export default class RegisterController {
 	async removeSong(req: Request, res: Response) {
 		const rmv = await this.userService.removeToFav(req.body);
 
-		if (!rmv) return res.status(400).json({ message: 'User not found!' });
+		if (!rmv) return res.status(404).json({ message: 'User not found!' });
 
 		return res.status(201).json(rmv);
+	}
+
+	async updateUser(req: Request, res: Response) {
+		const data = req.body;
+
+		const updatedUser = await this.userService.updateUser(data.user);
+
+		if (!updatedUser) return res.status(404).json({ message: 'User not found!'});
+
+		return res.status(201).json(updatedUser);
 	}
 }
