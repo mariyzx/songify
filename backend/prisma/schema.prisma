@@ -15,6 +15,7 @@ model User {
   name          String
   email         String          @unique
   password      String
+  description   String?
   favoriteSongs Songs[]  @relation(name: "Favorite_Songs")
 }
 
