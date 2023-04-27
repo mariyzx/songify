@@ -1,9 +1,10 @@
 import md5 from 'md5';
-import { ILoginCredentials, ILoginResponse } from '../interfaces/ILogin';
+import { ILoginCredentials, ILoginResponse, ILoginUpdate } from '../interfaces/ILogin';
 import { IRegisterCredentials, IRegisterUser } from '../interfaces/IRegister';
 import { IUserRepository } from '../interfaces/repositories/UserRepository';
 import { jwtGen } from '../utils/jwt';
 import { IFavoriteSongs, IFavoriteSongsParam, IFavoriteSongsResponseWithoutPass } from '../interfaces/IFavoriteSongs';
+import { ILoginUpdateResponse } from '../interfaces/ILogin';
 
 export default class RegisterService {
 	constructor(
@@ -68,5 +69,15 @@ export default class RegisterService {
 		const { password: _, ...userWithoutPass} = removeSong;
 
 		return userWithoutPass;
+	}
+
+	async updateUser(data: ILoginUpdate): Promise<ILoginUpdateResponse | null> {
+		const userExists = this.userRepository.findUser(data.email);
+
+		if (!userExists) return null;
+
+		const updatedUser = this.userRepository.updateUser(data);
+
+		return updatedUser;
 	}
 }
