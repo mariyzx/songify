@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { CreateUserControllerFactory } from '../factories/UserControllerFactory';
-import { validateRegister, validateLogin, validateFavSongs, authMiddleware } from '../middlewares/validators';
+import { validateRegister, validateLogin, validateFavSongs, authMiddleware, validateUpdate } from '../middlewares/validators';
 
 const router = Router();
 const userController = CreateUserControllerFactory.make();
@@ -11,5 +11,6 @@ router.patch('/favorite', validateFavSongs, authMiddleware, (req, res) => userCo
 router.get('/favorite', (req, res) => userController.getSongs(req, res));
 router.delete('/favorite', validateFavSongs, authMiddleware,
 	(req, res) => userController.removeSong(req, res));
+router.patch('/user', validateUpdate, authMiddleware, (req, res) => userController.updateUser(req, res));
 
 export default router;
