@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { DefaultTheme } from 'styled-components';
 import Context from './Context';
-import { ICreatedUser, ILogin, IUser } from '../interfaces/IUser';
+import { ICreatedUser, ILogin, IUpdatedUser, IUser } from '../interfaces/IUser';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import getMusics from '../services/searchSongsAPI';
-import addToLocal from '../services/favoriteSongsAPI';
 import { ITrack } from '../interfaces/ISongs';
 import { IFavorite } from '../interfaces/IFavorites';
 import light from '../styles/themes/light';
@@ -21,7 +20,6 @@ function Provider({ children }: any) {
     description: '',
     token: '',
   };
-  const favs = JSON.parse(localStorage.getItem('favorite_songs')!);
 
   const [theme, setTheme] = usePersistedState<DefaultTheme>('theme', light);
   const [user, setUser] = useState<ICreatedUser>(emptyUser);
@@ -152,6 +150,22 @@ function Provider({ children }: any) {
     }
   };
 
+  const updateUser = async (data: IUpdatedUser) => {
+    try {
+      const token = JSON.parse(localStorage.getItem('token')!);
+      const response = await api.patch('user', data, {
+        headers: {
+          Authorization: `${token}`,
+        },
+      });
+      console.log(response);
+      return { status: 'OK' };
+    } catch (err) {
+      console.log(err);
+      return { status: 'Erro' };
+    }
+  };
+
   const contextValue = {
     toggleTheme,
     theme,
@@ -171,6 +185,7 @@ function Provider({ children }: any) {
     removeToFav,
     favSongs,
     getFavs,
+    updateUser,
   };
 
   return <Context.Provider value={contextValue}>{children}</Context.Provider>;
