@@ -1,10 +1,7 @@
 # 🎵 Projeto Songify!
 
-Nesse projeto desenvolvi uma aplicação em React, responsável por reproduzir músicas das mais variadas bandas e artistas, criar uma lista de músicas favoritas e editar o perfil da pessoa usuária logada, consumindo a iTunes Search API.
+Nesse projeto desenvolvi uma aplicação Full-Stack, com front-end em React e back-end com MySQL e Node.js, responsável por reproduzir músicas das mais variadas bandas e artistas, criar uma lista de músicas favoritas e editar o perfil da pessoa usuária logada, consumindo a iTunes Search API.
 Estilizado com Styled Components e possuindo design responsivo!
-<br>
-<br>
-[Deploy da aplicação!](https://songify-neon.vercel.app/)
 
 ## 🚀 Começando
 
@@ -24,9 +21,7 @@ Clone o repositório:
 ```
 git@github.com:mariyzx/songify.git.
 ```
-:information_source: Instale as dependências com `npm install` na raíz do projeto.
-
-:sparkles: Rode o projeto com o comando `npm run dev`.
+:information_source: Instale as dependências e rode o projeto com `npm start` na raíz do projeto.
 
 ## ⚙️ Executando os testes
 
@@ -44,6 +39,8 @@ Os testes verificam a renderização de cada componente e o fluxo das páginas. 
 
 ## 🛠️ Construído com
 
+### Front-end
+
 * [TypeScript](https://www.typescriptlang.org/)
 * [Vite](https://vitejs.dev/)
 * [Zod](https://github.com/colinhacks/zod)
@@ -54,6 +51,16 @@ Os testes verificam a renderização de cada componente e o fluxo das páginas. 
 * [Polished](https://polished.js.org/)
 * [React Switch](https://www.npmjs.com/package/react-switch)
 * [React Icons](https://react-icons.github.io/react-icons/)
+
+### Back-end
+
+* [MySQL](https://www.mysql.com/)
+* [Node.js](https://nodejs.org/en)
+* [Prisma](https://www.prisma.io/)
+* [JWT](https://jwt.io/)
+* [Joi](https://joi.dev/)
+* [Express](https://expressjs.com/)
+* [Nodemon](https://nodemon.io/)
 
 ### ⚙️ Ajustes e melhorias
 
