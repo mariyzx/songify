@@ -23,6 +23,10 @@ git@github.com:mariyzx/songify.git.
 ```
 :information_source: Instale as dependências e rode o projeto com `npm start` na raíz do projeto.
 
+## 📃 Como utilizar
+
+É necessário ter uma conta no projeto para listar as músicas, caso não tenha uma conta basta se cadastrar através do link `Sign Up` na página inicial.
+
 ## ⚙️ Executando os testes
 
 Para executar os testes do projeto Songify basta ir até a pasta `tests` e utilizar o comando `npm test`.
@@ -62,7 +66,12 @@ Os testes verificam a renderização de cada componente e o fluxo das páginas. 
 * [Express](https://expressjs.com/)
 * [Nodemon](https://nodemon.io/)
 
-### ⚙️ Ajustes e melhorias
+## 🖥 Preview
+
+![image](https://user-images.githubusercontent.com/69324347/235500928-2f897492-05a6-4b48-b735-430c271fb6cb.png)
+![image](https://user-images.githubusercontent.com/69324347/235501059-e22c5c8a-bae4-446b-9628-9f2eaca8764b.png)
+
+## ⚙️ Ajustes e melhorias
 
 O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas nas seguintes tarefas de acessibilidade:
 
