@@ -10,13 +10,12 @@ function ProfileEdit() {
   const { user, updateUser } = useContext(Context);
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
-  const [image, setImg] = useState(user.image);
   const [description, setDescription] = useState(user.description);
   const [disabled, setDisabled] = useState(true);
   const navigate = useNavigate();
 
   const enableButton = () => {
-    if (name !== '' && email !== '' && image !== '' && description !== '') {
+    if (name !== '' && email !== '' && description !== '') {
       setDisabled(false);
     } else {
       setDisabled(true);
@@ -28,8 +27,6 @@ function ProfileEdit() {
       setName(target.value);
     } else if (target.name === 'email') {
       setEmail(target.value);
-    } else if (target.name === 'img') {
-      setImg(target.value);
     } else {
       setDescription(target.value);
     }
@@ -38,7 +35,7 @@ function ProfileEdit() {
   };
 
   const updateInfo = () => {
-    const objUser = { name, email, image, description };
+    const objUser = { name, email, description };
     localStorage.setItem('user', JSON.stringify(objUser));
     updateUser({ user: objUser });
     navigate('/profile');
@@ -77,16 +74,6 @@ function ProfileEdit() {
               id="info"
               value={description}
               name="info"
-              onChange={(e) => handleChange(e)}
-            />
-          </Label>
-          <Label htmlFor="img">
-            Img url:
-            <input
-              type="text"
-              id="img"
-              value={image}
-              name="img"
               onChange={(e) => handleChange(e)}
             />
           </Label>
