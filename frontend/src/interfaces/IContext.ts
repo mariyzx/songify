@@ -2,7 +2,7 @@ import { DefaultTheme } from 'styled-components';
 import { IAlbum } from './IAlbum';
 import { IFavorite } from './IFavorites';
 import { ITrack } from './ISongs';
-import { IUser, ICreatedUser, ILogin } from './IUser';
+import { IUser, ICreatedUser, ILogin, IUpdatedUser } from './IUser';
 
 export interface IContext {
   toggleTheme(): void;
@@ -22,4 +22,5 @@ export interface IContext {
   removeToFav(song: object): void;
   favSongs: Array<IFavorite>;
   getFavs(email: string): void;
+  updateUser(data: IUpdatedUser): void;
 }
