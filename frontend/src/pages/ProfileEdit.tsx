@@ -7,7 +7,7 @@ import { Button, Label } from '../styles/components/Form';
 import Edit from '../styles/pages/ProfileEdit';
 
 function ProfileEdit() {
-  const { user } = useContext(Context);
+  const { user, updateUser } = useContext(Context);
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [image, setImg] = useState(user.image);
@@ -40,6 +40,7 @@ function ProfileEdit() {
   const updateInfo = () => {
     const objUser = { name, email, image, description };
     localStorage.setItem('user', JSON.stringify(objUser));
+    updateUser({ user: objUser });
     navigate('/profile');
   };
 
