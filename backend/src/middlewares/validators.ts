@@ -38,7 +38,7 @@ export const validateRegister = async (req: Request, res: Response, next: NextFu
 	});
   
 	const { error } = schema.validate(req.body);
-	if (error) return res.status(400).json({message: error.details[0].message});
+	if (error) return res.status(401).json({message: error.details[0].message});
 
 	next();
 };
@@ -50,7 +50,7 @@ export const validateLogin = async (req: Request, res: Response, next: NextFunct
 	});
   
 	const { error } = schema.validate(req.body);
-	if (error) return res.status(400).json({message: error.details[0].message});
+	if (error) return res.status(401).json({message: error.details[0].message});
 
 	next();
 };
@@ -72,7 +72,7 @@ export const validateFavSongs  = async (req: AuthenticatedRequest, res: Response
 	});
   
 	const { error } = schema.validate(req.body);
-	if (error) return res.status(400).json({message: error.details[0].message});
+	if (error) return res.status(401).json({message: error.details[0].message});
 
 	next();
 };
@@ -87,7 +87,7 @@ export const validateUpdate  = async (req: AuthenticatedRequest, res: Response, 
 	});
   
 	const { error } = schema.validate(req.body);
-	if (error) return res.status(400).json({message: error.details[0].message});
+	if (error) return res.status(401).json({message: error.details[0].message});
 
 	next();
 };
