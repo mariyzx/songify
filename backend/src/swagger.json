@@ -1,0 +1,643 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Songify",
+    "description": "API desenvolvida para o projeto Songify.",
+    "contact": {
+      "email": "marinhomariana8@gmail.com",
+      "name": "Mariana Werneck"
+    },
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "register",
+      "description": "Cadastra um novo usuário no banco de dados."
+    },
+    {
+      "name": "login",
+      "description": "Autentica o usuário credenciado."
+    },
+    {
+      "name": "favorite",
+      "description": "Retorna, deleta ou atualiza a lista de músicas favoritas."
+    },
+    {
+      "name": "user",
+      "description": "Atualiza as informações do usuário."
+    }
+  ],
+  "paths": {
+    "/register": {
+      "post": {
+        "summary": "Responsável por cadastrar um usuário através das credenciais.",
+        "tags": ["register"],
+        "requestBody": {
+          "description": "Credenciais do usuário",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Register"
+              },
+              "examples": {
+                "login": {
+                  "value": {
+                    "name": "Ada Lovelace",
+                    "email": "adalovelace@email.com",
+                    "password": "123456"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Usuário cadastrado com sucesso!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "name": "Ada Lovelace",
+                    "email": "adalovelace@email.com",
+                    "password": "e1e54e1s5ad6e"
+                  },
+                  "$ref": "#/components/schemas/RegisterResponse"
+                  
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Usuário já existe no banco de dados.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "User already exists!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Alguma credencial foi enviada incorretamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Email is required."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "summary": "Responsável por autenticar o usuário através das credenciais.",
+        "tags": ["login"],
+        "requestBody": {
+          "description": "Credenciais do usuário.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Login"
+              },
+              "examples": {
+                "login": {
+                  "value": {
+                    "email": "adalovelace@email.com",
+                    "password": "123456"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200":{
+            "description": "Login realizado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "User not found!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Alguma credencial foi enviada incorretamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Email is required."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/favorite": {
+      "patch": {
+        "tags": ["favorite"],
+        "summary": "Atualiza a lista de músicas favoritas.",
+        "parameters": [{
+          "in": "body",
+          "name": "param",
+          "description": "Email do usuário e música desejada.",
+          "required": true,
+          "schema": {
+            "type": "object",
+            "$ref": "#/components/schemas/Favorite",
+            "example": {
+              "user": {
+                "email": "adalovelace@email.com"
+              },
+              "songs": [
+                {
+                  "id": 12,
+                  "title": "Lover",
+                  "artist": "Taylor Swift",
+                  "previewUrl": "teste",
+                  "album": "Lover"
+                }
+              ]
+            }
+          }
+        }],
+        "responses": {
+          "201": {
+            "description": "Música adicionada com sucesso!",
+            "content": {
+               "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "name": "Ada Lovelace",
+                    "email": "adalovelace@email.com",
+                    "favoriteSongs": [
+                      {
+                        "id": 12,
+                        "title": "Lover",
+                        "artist": "Taylor Swift",
+                        "previewUrl": "teste",
+                        "album": "Lover"
+                      }
+                    ]
+                  },
+                  "$ref": "#/components/schemas/FavoriteResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "User not found!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Alguma credencial foi enviada incorretamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Email is required."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["favorite"],
+        "summary": "Retorna todas as músicas favoritas.",
+        "parameters": [{
+          "in": "query",
+          "name": "email",
+          "description": "Email do usuário.",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "example": "adalovelace@email.com"
+        }],
+        "responses": {
+          "200": {
+            "description": "Retorna a lista de músicas favoritadas.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "artist": {
+                          "type": "string"
+                        },
+                        "previewUrl": {
+                          "type": "string"
+                        },
+                        "album": {
+                          "type": "string"
+                        }
+                      },
+                      "example": 
+                        {
+                          "id": 12,
+                          "title": "Lover",
+                          "artist": "Taylor Swift",
+                          "previewUrl": "teste",
+                          "album": "Lover"
+                        }
+                    },
+                  "$ref": "#/components/schemas/Songs"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Email não foi inserido.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Empty fields"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "User not found!"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["favorite"],
+        "summary": "Remove uma música da lista de favoritos",
+         "parameters": [{
+          "in": "body",
+          "name": "param",
+          "description": "Email do usuário e música desejada.",
+          "required": true,
+          "schema": {
+            "type": "object",
+            "$ref": "#/components/schemas/FavoriteResponse",
+            "example": {
+              "user": {
+                "email": "adalovelace@email.com"
+              },
+              "songs": [
+                {
+                  "id": 12,
+                  "title": "Lover",
+                  "artist": "Taylor Swift",
+                  "previewUrl": "teste",
+                  "album": "Lover"
+                }
+              ]
+            }
+          }
+        }],
+        "responses": {
+          "201": {
+            "description": "Música removida com sucesso!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "name": "Ada Lovelace",
+                    "email": "adalovelace@email.com",
+                    "favoriteSongs": []
+                  },
+                  "$ref": "#/components/schemas/FavoriteResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "User not found!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Alguma credencial foi enviada incorretamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Email is required."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user": {
+      "patch": {
+        "summary": "Edita as informações do usuário",
+        "tags": ["user"],
+        "parameters": [{
+          "in": "body",
+          "name": "user",
+          "description": "Informações do usuário",
+          "required": true,
+          "schema": {
+            "type": "object",
+            "$ref": "#/components/schemas/UpdateUser",
+            "example": {
+              "user": {
+                "email": "adalovelace@email.com",
+                "name": "Ada Lovelace",
+                "description": "Hey! This is Ada!"
+              }
+            }
+          }
+        }],
+        "responses": {
+          "201": {
+           "description": "Informações alteradas com sucesso!",
+            "content": {
+               "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "name": "Ada Lovelace",
+                    "email": "adalovelace@email.com",
+                    "description": "Hey! This id Ada!"
+                  },
+                  "$ref": "#/components/schemas/UpdateUser"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "User not found!"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Register": {
+        "required": ["email", "password", "name"],
+        "type": "object",
+        "properties": {
+          "email": { "type": "string", "example": "adalovelace@email.com" },
+          "name": { "type": "string", "example": "Ada Lovelace" },
+          "password": { "type": "string", "example": "123456"}
+        }
+      },
+      "RegisterResponse": {
+        "required": ["email", "password", "name"],
+        "type": "object",
+        "properties": {
+          "email": { "type": "string", "example": "adalovelace@email.com" },
+          "name": { "type": "string", "example": "Ada Lovelace" },
+          "password": { "type": "string", "example": "e1e54e1s5ad6e"}
+        }
+      },
+      "Login": {
+        "required": ["email", "password"],
+        "type": "object",
+        "properties": {
+          "email": { "type": "string", "example": "adalovelace@email.com" },
+          "password": { "type": "string", "example": "123456"}
+        }
+      },
+      "LoginResponse": {
+         "required": ["email", "name", "token", "favoriteSongs"],
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "example": "Ada Lovelace" },
+          "email": { "type": "string", "example": "adalovelace@email.com" },
+          "token": { "type": "string", "example":
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJyb2xlIjoiYWRtaW4iLCJ1c2VybmFtZSI6IkFkbWluIiwiaWF0IjoxNjcwMDA0MjU0LCJleHAiOjE2NzAwOTA2NTR9.XzNt7nKxfNkLkQ2NJVPGSNmfBSPFm6k07rsj9RmdrvE" },
+          "favoriteSongs": { "type": "array", "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "example": 12
+              },
+              "title": {
+                "type": "string",
+                "example": "Lover"
+              },
+              "artist": {
+                "type": "string",
+                "example": "Taylor Swift"
+              },
+              "previewUrl": {
+                "type": "string",
+                "example": "teste.com"
+              },
+              "album": {
+                "type": "string",
+                "example": "Lover"
+              }
+            }
+          } }
+        }
+      },
+      "Favorite": {
+        "required": ["user", "songs"],
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string",
+                "example": "adalovelace@email.com"
+              }
+            }
+          },
+          "songs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "example": 12
+                },
+                "title": {
+                  "type": "string",
+                  "example": "Lover"
+                },
+                "artist": {
+                  "type": "string",
+                  "example": "Taylor Swift"
+                },
+                "previewUrl": {
+                  "type": "string",
+                  "example": "teste.com"
+                },
+                "album": {
+                  "type": "string",
+                  "example": "Lover"
+                }
+              }
+            }
+          }
+        }
+      },
+      "FavoriteResponse": {
+        "required": ["name", "email", "favoriteSongs"],
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "example": "Ada Lovelace"
+          },
+          "email": { "type": "string", "example": "adalovelace@email.com"  },
+          "favoriteSongs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "example": 12
+                },
+                "title": {
+                  "type": "string",
+                  "example": "Lover"
+                },
+                "artist": {
+                  "type": "string",
+                  "example": "Taylor Swift"
+                },
+                "previewUrl": {
+                  "type": "string",
+                  "example": "teste.com"
+                },
+                "album": {
+                  "type": "string",
+                  "example": "Lover"
+                }
+              }
+            }
+          }
+        }
+      },
+      "UpdateUser": {
+        "required": ["email", "name", "description"],
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "example": "Ada Lovelace"
+          },
+          "email": { "type": "string", "example": "adalovelace@email.com"  },
+          "description": { "type": "string", "example": "Hey! This is Ada!"}
+        }
+      }
+    }
+  }
+}
