@@ -73,11 +73,13 @@ Os testes verificam a renderização de cada componente e o fluxo das páginas. 
 
 ## ⚙️ Ajustes e melhorias
 
-O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas nas seguintes tarefas de acessibilidade:
+O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas nas seguintes tarefas:
 
 - [x] Aumentar fonte
 - [x] Transição nos links de navegação
 - [x] Estilizar página Not Found
+- [ ] Retorno de sucesso ou erro na tela ao criar uma conta
+- [ ] Botão do 'Songify' na tela de SignUp retorna para a tela de Login
 - [ ] Cards de álbuns em disposição horizontal
 - [ ] Indicações de músicas na tela inicial
 
