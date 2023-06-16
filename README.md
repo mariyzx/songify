@@ -1,6 +1,6 @@
 # 🎵 Projeto Songify!
 
-Nesse projeto desenvolvi uma aplicação Full-Stack, com front-end em React e back-end com MySQL e Node.js, responsável por reproduzir músicas das mais variadas bandas e artistas, criar uma lista de músicas favoritas e editar o perfil da pessoa usuária logada, consumindo a iTunes Search API.
+Nesse projeto desenvolvi uma aplicação Full-Stack, com front-end em React e back-end com MySQL e Node.js, responsável por reproduzir músicas das mais variadas bandas e artistas, criar uma lista de músicas favoritas e editar o perfil da pessoa usuária logada, consumindo a própria API desenvolvida no back-end.
 Estilizado com Styled Components e possuindo design responsivo!
 
 ## 🚀 Começando
