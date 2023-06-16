@@ -2,7 +2,12 @@ import { DefaultTheme } from 'styled-components';
 import { IAlbum } from '../../src/interfaces/IAlbum';
 import { IFavorite } from '../../src/interfaces/IFavorites';
 import { ITrack } from '../../src/interfaces/ISongs';
-import { IUser, ICreatedUser } from '../../src/interfaces/IUser';
+import {
+  IUser,
+  ICreatedUser,
+  ILogin,
+  IUpdatedUser,
+} from '../../src/interfaces/IUser';
 import light from '../../src/styles/themes/light';
 import albumMock from './albums';
 import favoriteMock from './favorite';
@@ -12,19 +17,22 @@ import mockUser from './user';
 export interface IContext {
   toggleTheme(): void;
   theme: DefaultTheme;
-  createUser(data: IUser): ICreatedUser;
+  createUser(): void;
+  login(): Promise<ILogin>;
   user: ICreatedUser;
+  statusCode: string;
   loading: boolean;
   albums: Array<IAlbum>;
   empty: boolean;
-  getAlbums(artist: string): void;
+  getAlbums(): void;
   artistName: string;
-  getSongs(album: string): void;
+  getSongs(): void;
   songs: Array<ITrack>;
-  addToFav(song: object): void;
-  removeToFav(song: object): void;
+  addToFav(): void;
+  removeToFav(): void;
   favSongs: Array<IFavorite>;
   getFavs(): void;
+  updateUser(): void;
 }
 
 const toggleTheme = () => {
@@ -33,6 +41,10 @@ const toggleTheme = () => {
 
 const createUser = () => {
   return mockUser;
+};
+
+const login = async () => {
+  return { status: 'OK' };
 };
 
 const getAlbums = () => {
@@ -55,11 +67,17 @@ const getFavs = () => {
   ':)';
 };
 
+const updateUser = () => {
+  return { status: 'OK' };
+};
+
 export const providerInfo: IContext = {
   toggleTheme,
   theme: light,
   createUser,
+  login,
   user: mockUser,
+  statusCode: 'OK',
   loading: false,
   albums: albumMock,
   empty: false,
@@ -71,4 +89,5 @@ export const providerInfo: IContext = {
   removeToFav,
   favSongs: favoriteMock,
   getFavs,
+  updateUser,
 };
