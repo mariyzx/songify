@@ -18,7 +18,7 @@ export const HomeForm = styled.form`
   }
 
   p {
-    font-size: x-large;
+    font-weight: bold;
   }
 `;
 
