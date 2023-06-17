@@ -33,6 +33,7 @@ export interface IContext {
   favSongs: Array<IFavorite>;
   getFavs(): void;
   updateUser(): void;
+  getRandomArtist(): void;
 }
 
 const toggleTheme = () => {
@@ -68,7 +69,11 @@ const getFavs = () => {
 };
 
 const updateUser = () => {
-  return { status: 'OK' };
+  ':)';
+};
+
+const getRandomArtist = () => {
+  ':)';
 };
 
 export const providerInfo: IContext = {
@@ -90,4 +95,5 @@ export const providerInfo: IContext = {
   favSongs: favoriteMock,
   getFavs,
   updateUser,
+  getRandomArtist,
 };
