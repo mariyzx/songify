@@ -23,5 +23,5 @@ export interface IContext {
   favSongs: Array<IFavorite>;
   getFavs(email: string): void;
   updateUser(data: IUpdatedUser): void;
-  getRandomArtist(): Promise<void>;
+  getRandomArtist(): void;
 }
