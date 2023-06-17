@@ -16,6 +16,10 @@ export const HomeForm = styled.form`
   @media only screen and (max-width: 520px) {
     text-align: left;
   }
+
+  p {
+    font-size: x-large;
+  }
 `;
 
 export const Button = styled.button`
