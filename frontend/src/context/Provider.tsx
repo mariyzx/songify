@@ -44,6 +44,7 @@ function Provider({ children }: any) {
         setStatusCode('OK');
         const { password: _, ...userWithoutPass } = info;
         setUser({ ...userWithoutPass, name: '' });
+        localStorage.setItem('user', JSON.stringify(userWithoutPass));
         return userWithoutPass;
       })
       .catch((err) => setStatusCode(err.response.data.message));
