@@ -1,4 +1,5 @@
 import { MdFavoriteBorder } from 'react-icons/md';
+import { FiLogOut } from 'react-icons/fi';
 import { CgProfile } from 'react-icons/cg';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
@@ -9,6 +10,12 @@ import Nav from '../styles/components/Nav';
 import { MainSearch } from '../styles/pages/Search';
 
 function Search() {
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    localStorage.removeItem('theme');
+  };
+
   return (
     <div>
       <Header />
@@ -21,6 +28,10 @@ function Search() {
           <Link to="/profile">
             <CgProfile />
             Profile
+          </Link>
+          <Link to="/" onClick={() => handleLogout()}>
+            <FiLogOut />
+            Logout
           </Link>
         </Nav>
         <MainList>
