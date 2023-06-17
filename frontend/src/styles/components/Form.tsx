@@ -45,6 +45,10 @@ export const Label = styled.label`
   width: 100%;
   margin: 1px;
 
+  input:-webkit-autofill {
+    transition: all 0s 50000s;
+  }
+
   input {
     background-color: transparent;
     color: ${(props) => props.theme.colors.text};
