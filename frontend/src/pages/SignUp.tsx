@@ -79,7 +79,7 @@ function SignUp() {
             Sign Up
           </Button>
         </form>
-        {statusCode}
+        {statusCode === 'OK' ? <p>User created successfully!</p> : statusCode}
       </MainSignUp>
     </div>
   );

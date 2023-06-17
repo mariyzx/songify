@@ -40,7 +40,7 @@ function Provider({ children }: any) {
     api
       .post('register', data)
       .then((res) => {
-        setStatusCode(res.statusText);
+        setStatusCode('OK');
         const { password: _, ...userWithoutPass } = info;
         setUser({ ...userWithoutPass, name: '' });
         return userWithoutPass;
