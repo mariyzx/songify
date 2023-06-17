@@ -9,7 +9,7 @@ function ListAlbums() {
     <DivAlbum>
       {!empty ? (
         <>
-          <h3>Result of albums of: {artistName}</h3>
+          <h3>Albums: {artistName}</h3>
           <ListAlb>
             {albums.map((album) => (
               <div key={album.artworkUrl100}>
