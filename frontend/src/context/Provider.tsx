@@ -10,6 +10,7 @@ import light from '../styles/themes/light';
 import dark from '../styles/themes/dark';
 import usePersistedState from '../utils/usePersistedState';
 import api from '../api/api';
+import getRandomArtistAPI from '../services/getRandomArtistAPI';
 
 function Provider({ children }: any) {
   const emptyUser = {
@@ -166,6 +167,17 @@ function Provider({ children }: any) {
     }
   };
 
+  const getRandomArtist = async (): Promise<void> => {
+    try {
+      setLoading(true);
+      const randomArtist = await getRandomArtistAPI(); // Função para obter um artista aleatório da API
+      setAlbums(randomArtist);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const contextValue = {
     toggleTheme,
     theme,
@@ -186,6 +198,7 @@ function Provider({ children }: any) {
     favSongs,
     getFavs,
     updateUser,
+    getRandomArtist,
   };
 
   return <Context.Provider value={contextValue}>{children}</Context.Provider>;
