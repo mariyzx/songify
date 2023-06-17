@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Context from '../context/Context';
-import { Button, HomeForm, Label } from '../styles/components/Form';
+import { Button, HomeForm, Label, SignUp } from '../styles/components/Form';
 import Loader from '../styles/components/Loader';
 
 const schema = z.object({
@@ -71,7 +71,7 @@ function Form() {
         Sign In
       </Button>
       <p>
-        Don&apos;t have an account? <Link to="/signup">Sign Up</Link>
+        Don&apos;t have an account? <SignUp to="/signup">Sign Up</SignUp>
       </p>
 
       {loading ? (

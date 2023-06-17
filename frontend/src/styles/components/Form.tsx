@@ -1,4 +1,5 @@
 import { shade, lighten } from 'polished';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const HomeForm = styled.form`
@@ -46,7 +47,7 @@ export const Label = styled.label`
   margin: 1px;
 
   input:-webkit-autofill {
-    transition: all 0s 50000s;
+    transition: all 0s 50000s; // remove estilização no autocomplete do navegador
   }
 
   input {
@@ -97,5 +98,16 @@ export const SearchButton = styled.button`
   :disabled {
     cursor: not-allowed;
     background-color: ${(props) => lighten(0.1, props.theme.colors.secondary)};
+  }
+`;
+
+export const SignUp = styled(Link)`
+  font-weight: 700;
+  cursor: pointer;
+  transition: ease all 0.5s;
+
+  :hover {
+    text-decoration: underline;
+    color: ${(props) => lighten(0.2, props.theme.colors.secondary)};
   }
 `;
