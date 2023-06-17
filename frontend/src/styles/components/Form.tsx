@@ -104,7 +104,7 @@ export const SearchButton = styled.button`
 export const SignUp = styled(Link)`
   font-weight: 700;
   cursor: pointer;
-  transition: ease all 0.5s;
+  transition: ease all 1s;
 
   :hover {
     text-decoration: underline;
