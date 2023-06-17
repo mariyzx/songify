@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Context from '../context/Context';
 import { Label, SearchButton } from '../styles/components/Form';
 import Loader from '../styles/components/Loader';
@@ -6,12 +6,16 @@ import { SearchForm } from '../styles/pages/Search';
 
 function Search() {
   const [searchInput, setSearchInput] = useState('');
-  const { loading, getAlbums } = useContext(Context);
+  const { loading, getAlbums, getRandomArtist } = useContext(Context);
 
   const handleSearch = () => {
     getAlbums(searchInput);
     setSearchInput('');
   };
+
+  useEffect(() => {
+    getRandomArtist();
+  }, []);
 
   return (
     <SearchForm>
