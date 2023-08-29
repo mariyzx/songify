@@ -25,7 +25,13 @@ git@github.com:mariyzx/songify.git
 
 ## 📃 Como utilizar
 
-:information_source: Consulte o arquivo `backend/.env.example` para adicionar suas variáveis de ambiente!
+:information_source: Consulte o arquivo `backend/.env.example` para adicionar suas variáveis de ambiente! [](https://www.inmotionhosting.com/support/website/connect-database-remotely-mysql-workbench/)
+
+:information_source: Rode o banco de dados do projeto com o comando `npx prisma migrate dev` na pasta `backend`.
+
+:information_source: No arquivo `frontend/api/api.tsx` ele espera a porta que você definiu para o backend, não se esqueça de inseri-la!
+
+:information_source: Para rodar o backend utilize `cd backend && npm run dev` e para rodar o frontend utilize `cd frontend && npm run dev`
 
 É necessário ter uma conta no projeto para listar as músicas, caso não tenha uma conta basta se cadastrar através do link `Sign Up` na página inicial.
 
