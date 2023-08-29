@@ -19,11 +19,13 @@ Consulte **[Instalação](#install)** para saber como rodar o projeto.
 Clone o repositório:
 
 ```
-git@github.com:mariyzx/songify.git.
+git@github.com:mariyzx/songify.git
 ```
-:information_source: Instale as dependências e rode o projeto com `npm start` na raíz do projeto.
+:information_source: Instale as dependências e rode com `npm start` na raíz do projeto.
 
 ## 📃 Como utilizar
+
+:information_source: Consulte o arquivo `backend/.env.example` para adicionar suas variáveis de ambiente!
 
 É necessário ter uma conta no projeto para listar as músicas, caso não tenha uma conta basta se cadastrar através do link `Sign Up` na página inicial.
 
