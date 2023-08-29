@@ -25,7 +25,8 @@ git@github.com:mariyzx/songify.git
 
 ## 📃 Como utilizar
 
-:information_source: Consulte o arquivo `backend/.env.example` para adicionar suas variáveis de ambiente! [](https://www.inmotionhosting.com/support/website/connect-database-remotely-mysql-workbench/)
+:information_source: Consulte o arquivo `backend/.env.example` para adicionar suas variáveis de ambiente! [How to Connect to a Database with MySQL Workbench
+](https://www.inmotionhosting.com/support/website/connect-database-remotely-mysql-workbench/)
 
 :information_source: Rode o banco de dados do projeto com o comando `npx prisma migrate dev` na pasta `backend`.
 
