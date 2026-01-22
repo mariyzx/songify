@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { AddFavoriteDto } from './dto/add-favorite.dto';
 
@@ -63,6 +63,24 @@ export class FavoritesService {
   }
 
   async removeFavorite(userId: number, songId: number) {
+    const song = await this.prisma.songs.findUnique({
+      where: { id: songId },
+    });
+
+    if (!song) {
+      throw new NotFoundException('Song not found');
+    }
+
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      include: { favoriteSongs: true },
+    });
+
+    const hasFavorite = user?.favoriteSongs.some((s) => s.id === songId);
+    if (!hasFavorite) {
+      throw new NotFoundException('Song is not in favorites');
+    }
+
     const updatedUser = await this.prisma.user.update({
       where: { id: userId },
       data: {

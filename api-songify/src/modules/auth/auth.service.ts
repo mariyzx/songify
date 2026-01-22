@@ -87,7 +87,7 @@ export class AuthService {
     });
 
     return {
-      user,
+      ...user,
       token,
     };
   }
