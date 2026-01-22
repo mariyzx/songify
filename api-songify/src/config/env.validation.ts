@@ -13,6 +13,9 @@ class EnvValidation {
 
   @IsString()
   CORS_ORIGIN: string;
+
+  @IsString()
+  JWT_EXPIRES_IN: string;
 }
 
 export function validate(config: Record<string, unknown>) {
