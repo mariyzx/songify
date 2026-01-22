@@ -4,9 +4,12 @@ import { ConfigService } from '@nestjs/config';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
+import { Logger } from 'nestjs-pino';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    bufferLogs: true,
+  });
   const configService = app.get(ConfigService);
   app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalPipes(
@@ -16,6 +19,7 @@ async function bootstrap() {
       transform: true,
     }),
   );
+  app.useLogger(app.get(Logger));
   app.enableCors({
     origin: configService.get<string>('CORS_ORIGIN'),
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
