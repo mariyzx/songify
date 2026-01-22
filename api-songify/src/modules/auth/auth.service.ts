@@ -13,6 +13,14 @@ export class AuthService {
     private configService: ConfigService,
   ) {}
 
+  async generateRefreshToken(userId: number): Promise<string> {
+    const payload = { sub: userId, type: 'refresh' };
+    return await this.jwtService.signAsync(payload, {
+      secret: this.configService.get('JWT_REFRESH_SECRET'),
+      expiresIn: this.configService.get('JWT_REFRESH_EXPIRES_IN') || '7d',
+    });
+  }
+
   async register(registerDto: RegisterDto) {
     const user = await this.prisma.user.findUnique({
       where: {
@@ -81,14 +89,55 @@ export class AuthService {
     });
 
     const payload = { email: userWithPassword.email, sub: userWithPassword.id };
-    const token = this.jwtService.sign(payload, {
+    const accessToken = this.jwtService.sign(payload, {
       secret: this.configService.get('JWT_SECRET'),
       expiresIn: this.configService.get('JWT_EXPIRES_IN'),
     });
+    const refreshToken = await this.generateRefreshToken(userWithPassword.id);
 
+    await this.prisma.user.update({
+      where: { id: userWithPassword.id },
+      data: { refreshToken },
+    });
     return {
       ...user,
-      token,
+      accessToken,
+      refreshToken,
     };
+  }
+
+  async refreshToken(refreshToken: string) {
+    try {
+      const payload = this.jwtService.verify(refreshToken, {
+        secret: this.configService.get('JWT_REFRESH_SECRET'),
+      });
+
+      if (payload.type !== 'refresh') {
+        throw new UnauthorizedException('Invalid token type');
+      }
+
+      const user = await this.prisma.user.findUnique({
+        where: { id: payload.sub },
+      });
+
+      if (!user || user.refreshToken !== refreshToken) {
+        throw new UnauthorizedException('Invalid refresh token');
+      }
+
+      // Gerar novo access token
+      const newAccessToken = this.jwtService.sign(
+        { email: user.email, sub: user.id },
+        {
+          secret: this.configService.get('JWT_SECRET'),
+          expiresIn: this.configService.get('JWT_EXPIRES_IN'),
+        },
+      );
+
+      return {
+        accessToken: newAccessToken,
+      };
+    } catch (error) {
+      throw new UnauthorizedException('Invalid refresh token');
+    }
   }
 }
