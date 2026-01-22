@@ -124,7 +124,6 @@ export class AuthService {
         throw new UnauthorizedException('Invalid refresh token');
       }
 
-      // Gerar novo access token
       const newAccessToken = this.jwtService.sign(
         { email: user.email, sub: user.id },
         {
