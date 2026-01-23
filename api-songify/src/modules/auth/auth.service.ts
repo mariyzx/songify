@@ -1,4 +1,4 @@
-import { ConflictException, UnauthorizedException } from '@nestjs/common';
+import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -6,6 +6,7 @@ import { RegisterDto } from './dto/register.dto';
 import * as bcrypt from 'bcryptjs';
 import { LoginDto } from './dto/login.dto';
 
+@Injectable()
 export class AuthService {
   constructor(
     private prisma: PrismaService,
