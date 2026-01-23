@@ -10,6 +10,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     bufferLogs: true,
   });
+  app.useLogger(app.get(Logger));
+
   const configService = app.get(ConfigService);
   app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalPipes(
@@ -19,7 +21,7 @@ async function bootstrap() {
       transform: true,
     }),
   );
-  app.useLogger(app.get(Logger));
+  
   app.enableCors({
     origin: configService.get<string>('CORS_ORIGIN'),
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
@@ -28,9 +30,9 @@ async function bootstrap() {
   });
   const config = new DocumentBuilder()
     .setTitle('Songify API')
-    .setDescription('API para gerenciamento de músicas favoritas')
+    .setDescription('API for songs management')
     .setVersion('1.0')
-    .addBearerAuth() // Por quê? Configura autenticação JWT no Swagger
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);
