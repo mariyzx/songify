@@ -12,7 +12,6 @@ export class RegisterDto {
     example: 'john.doe@example.com',
     description: 'The email of the user',
   })
-  @IsEmail()
   @IsNotEmpty()
   @IsEmail({}, { message: 'Invalid email' })
   email: string;
