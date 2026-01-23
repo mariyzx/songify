@@ -13,7 +13,6 @@ async function bootstrap() {
   app.useLogger(app.get(Logger));
 
   const configService = app.get(ConfigService);
-  app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -21,7 +20,6 @@ async function bootstrap() {
       transform: true,
     }),
   );
-  
   app.enableCors({
     origin: configService.get<string>('CORS_ORIGIN'),
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
@@ -35,7 +33,9 @@ async function bootstrap() {
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/docs', app, document);
+  if (configService.get<string>('NODE_ENV') === 'development') {
+    SwaggerModule.setup('api/docs', app, document);
+  }
 
   const port = configService.get<number>('PORT') || 3001;
   await app.listen(port);

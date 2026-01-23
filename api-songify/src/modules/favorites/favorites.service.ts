@@ -9,12 +9,13 @@ export class FavoritesService {
   async addToFavorites(userId: number, addFavoriteDto: AddFavoriteDto) {
     const { songs } = addFavoriteDto;
     const songIds = songs.map((song) => song.id);
+    const uniqueSongIds = [...new Set(songIds)];
 
     const existingSongs = await this.prisma.songs.findMany({
-      where: { id: { in: songIds } },
+      where: { id: { in: uniqueSongIds } },
     });
 
-    const missingSongIds = songIds.filter(
+    const missingSongIds = uniqueSongIds.filter(
       (id) => !existingSongs.find((song) => song.id === id),
     );
 
@@ -37,7 +38,7 @@ export class FavoritesService {
       where: { id: userId },
       data: {
         favoriteSongs: {
-          connect: songIds.map((id) => ({ id })),
+          connect: uniqueSongIds.map((id) => ({ id })),
         },
       },
       select: {

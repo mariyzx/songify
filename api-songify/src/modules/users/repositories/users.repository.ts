@@ -33,20 +33,20 @@ export class UsersRepository {
   }
 
   async update(id: number, data: UpdateUserDto) {
-    const user = await this.findById(id);
-    if (!user) {
+    try {
+      return this.prisma.user.update({
+        where: { id },
+        data,
+        select: {
+          id: true,
+          email: true,
+          name: true,
+          description: true,
+          favoriteSongs: true,
+        },
+      });
+    } catch (error) {
       throw new NotFoundException('User not found');
-    }
-    return this.prisma.user.update({
-      where: { id },
-      data,
-      select: {
-        id: true,
-        email: true,
-        name: true,
-        description: true,
-        favoriteSongs: true,
-      },
-    });
+    }    
   }
 }

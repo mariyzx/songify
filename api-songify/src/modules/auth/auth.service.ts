@@ -26,6 +26,7 @@ export class AuthService {
     const user = await this.prisma.user.findUnique({
       where: {
         email: registerDto.email,
+        deletedAt: null,
       },
     });
     if (user) {
@@ -56,11 +57,14 @@ export class AuthService {
     const userWithPassword = await this.prisma.user.findUnique({
       where: {
         email: loginDto.email,
+        deletedAt: null,
       },
       select: {
         id: true,
         email: true,
-        password: true, // Necessário para validação
+        password: true,
+        description: true,
+        favoriteSongs: true,
       },
     });
 
@@ -73,21 +77,8 @@ export class AuthService {
       userWithPassword.password,
     );
     if (!isPasswordValid) {
-      throw new UnauthorizedException('Invalid password');
+      throw new UnauthorizedException('Invalid credentials');
     }
-
-    const user = await this.prisma.user.findUnique({
-      where: {
-        email: loginDto.email,
-      },
-      select: {
-        id: true,
-        email: true,
-        name: true,
-        description: true,
-        favoriteSongs: true,
-      },
-    });
 
     const payload = { email: userWithPassword.email, sub: userWithPassword.id };
     const accessToken = this.jwtService.sign(payload, {
@@ -100,8 +91,10 @@ export class AuthService {
       where: { id: userWithPassword.id },
       data: { refreshToken },
     });
+
+    const { password: _, ...userWithoutPassword } = userWithPassword;
     return {
-      ...user,
+      ...userWithoutPassword,
       accessToken,
       refreshToken,
     };
