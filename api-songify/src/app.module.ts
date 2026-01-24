@@ -10,6 +10,7 @@ import { FavoritesModule } from './modules/favorites/favorites.module';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { LoggerModule } from 'nestjs-pino';
+import { randomUUID } from 'node:crypto';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 
 @Module({
@@ -26,11 +27,12 @@ import { HttpExceptionFilter } from './common/filters/http-exception.filter';
     ThrottlerModule.forRoot([
       {
         ttl: 60000,
-        limit: 10,
+        limit: 100,
       },
     ]),
     LoggerModule.forRoot({
       pinoHttp: {
+        genReqId: () => randomUUID(),
         transport:
           process.env.NODE_ENV !== 'production'
             ? {

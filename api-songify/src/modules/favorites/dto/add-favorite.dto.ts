@@ -4,6 +4,7 @@ import {
   IsString,
   IsNumber,
   IsNotEmpty,
+  IsOptional,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
@@ -28,10 +29,10 @@ class SongDto {
   @IsNotEmpty()
   album: string;
 
-  @ApiProperty({ example: 'https://preview-url.com' })
+  @ApiProperty({ example: 'https://preview-url.com', required: false })
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
-  previewUrl: string;
+  previewUrl?: string;
 }
 
 export class AddFavoriteDto {

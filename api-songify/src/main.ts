@@ -3,16 +3,23 @@ import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { Logger } from 'nestjs-pino';
+import helmet from 'helmet';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     bufferLogs: true,
   });
-  app.useLogger(app.get(Logger));
+  const logger = app.get(Logger);
 
+  app.useLogger(logger);
   const configService = app.get(ConfigService);
+  app.use(
+    helmet({
+      contentSecurityPolicy:
+        configService.get<string>('NODE_ENV') === 'development' ? false : undefined,
+    }),
+  );
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -21,7 +28,7 @@ async function bootstrap() {
     }),
   );
   app.enableCors({
-    origin: configService.get<string>('CORS_ORIGIN'),
+    origin: configService.getOrThrow<string>('CORS_ORIGIN'),
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
@@ -40,7 +47,7 @@ async function bootstrap() {
   const port = configService.get<number>('PORT') || 3001;
   await app.listen(port);
 
-  console.log(`🚀 Server running on port ${port}`);
-  console.log(`📚 Swagger docs: http://localhost:${port}/api/docs`);
+  logger.log(`🚀 Server running on port ${port}`);
+ 
 }
 bootstrap();

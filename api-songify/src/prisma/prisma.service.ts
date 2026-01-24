@@ -9,17 +9,8 @@ export class PrismaService
   implements OnModuleInit, OnModuleDestroy
 {
   constructor(private configService: ConfigService) {
-    // Por quê usar adapter no Prisma 7?
-    // No Prisma 7, você DEVE usar um adapter específico para cada banco de dados
-    // Para MySQL/MariaDB, usamos @prisma/adapter-mariadb
-    const databaseUrl = configService.get<string>('DATABASE_URL') || process.env.DATABASE_URL;
-    
-    if (!databaseUrl) {
-      throw new Error('DATABASE_URL environment variable is not set. Please check your .env file.');
-    }
+    const databaseUrl = configService.getOrThrow<string>('DATABASE_URL');
 
-    // Parsear a URL de conexão MySQL
-    // Formato: mysql://user:password@host:port/database
     const url = new URL(databaseUrl);
     
     // Criar adapter MariaDB com os parâmetros parseados

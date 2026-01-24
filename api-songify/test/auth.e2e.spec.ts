@@ -1,7 +1,7 @@
-// test/auth.e2e-spec.ts
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import * as request from 'supertest';
+import * as bcrypt from 'bcryptjs';
 import { AppModule } from '../src/app.module';
 import { PrismaService } from '../src/prisma/prisma.service';
 
@@ -47,11 +47,15 @@ describe('AuthController (e2e)', () => {
   // Executa antes/depois de cada teste
   // Útil para limpar dados entre testes
   beforeEach(async () => {
-    // Limpar dados de teste
     await prismaService.user.deleteMany({
       where: {
         email: {
-          in: ['test@example.com', 'newuser@example.com'],
+          in: [
+            'test@example.com',
+            'newuser@example.com',
+            'login@example.com',
+            'existing@example.com',
+          ],
         },
       },
     });
@@ -110,7 +114,6 @@ describe('AuthController (e2e)', () => {
 
   describe('/auth/login (POST)', () => {
     it('should login successfully', async () => {
-      // Criar usuário primeiro
       const hashedPassword = await bcrypt.hash('password123', 10);
       await prismaService.user.create({
         data: {
@@ -128,8 +131,12 @@ describe('AuthController (e2e)', () => {
         })
         .expect(200)
         .expect((res) => {
-          expect(res.body).toHaveProperty('token');
-          expect(res.body.user).toBeDefined();
+          expect(res.body).toHaveProperty('accessToken');
+          expect(res.body).toHaveProperty('refreshToken');
+          expect(res.body.id).toBeDefined();
+          expect(res.body.email).toBe('login@example.com');
+          expect(res.body.name).toBe('Login User');
+          expect(res.body).not.toHaveProperty('password');
         });
     });
 
@@ -141,6 +148,37 @@ describe('AuthController (e2e)', () => {
           password: 'wrongpassword',
         })
         .expect(401);
+    });
+  });
+
+  describe('/auth/refresh (POST)', () => {
+    it('should return new accessToken for valid refresh token', async () => {
+      const hashedPassword = await bcrypt.hash('password123', 10);
+      await prismaService.user.create({
+        data: {
+          email: 'login@example.com',
+          name: 'Login User',
+          password: hashedPassword,
+        },
+      });
+
+      const loginRes = await request(app.getHttpServer())
+        .post('/auth/login')
+        .send({
+          email: 'login@example.com',
+          password: 'password123',
+        })
+        .expect(200);
+
+      const { refreshToken } = loginRes.body;
+
+      return request(app.getHttpServer())
+        .post('/auth/refresh')
+        .send({ refreshToken })
+        .expect(200)
+        .expect((res) => {
+          expect(res.body).toHaveProperty('accessToken');
+        });
     });
   });
 });

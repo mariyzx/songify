@@ -28,7 +28,7 @@ export class FavoritesService {
           title: song.title,
           artist: song.artist,
           album: song.album,
-          previewUrl: song.previewUrl,
+          previewUrl: song.previewUrl ?? '',
         })),
         skipDuplicates: true,
       });

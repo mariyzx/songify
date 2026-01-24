@@ -1,7 +1,8 @@
 import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { Logger } from 'nestjs-pino';
+import { PrismaService } from '../../prisma/prisma.service';
 import { RegisterDto } from './dto/register.dto';
 import * as bcrypt from 'bcryptjs';
 import { LoginDto } from './dto/login.dto';
@@ -12,6 +13,7 @@ export class AuthService {
     private prisma: PrismaService,
     private jwtService: JwtService,
     private configService: ConfigService,
+    private readonly logger: Logger,
   ) {}
 
   async generateRefreshToken(userId: number): Promise<string> {
@@ -23,7 +25,7 @@ export class AuthService {
   }
 
   async register(registerDto: RegisterDto) {
-    const user = await this.prisma.user.findUnique({
+    const user = await this.prisma.user.findFirst({
       where: {
         email: registerDto.email,
         deletedAt: null,
@@ -54,7 +56,7 @@ export class AuthService {
   }
 
   async login(loginDto: LoginDto) {
-    const userWithPassword = await this.prisma.user.findUnique({
+    const userWithPassword = await this.prisma.user.findFirst({
       where: {
         email: loginDto.email,
         deletedAt: null,
@@ -62,6 +64,7 @@ export class AuthService {
       select: {
         id: true,
         email: true,
+        name: true,
         password: true,
         description: true,
         favoriteSongs: true,
@@ -130,7 +133,22 @@ export class AuthService {
         accessToken: newAccessToken,
       };
     } catch (error) {
-      throw new UnauthorizedException('Invalid refresh token');
+      if (error instanceof UnauthorizedException) {
+        throw error;
+      }
+      this.logger.warn(
+        { err: error, context: 'refreshToken' },
+        'Refresh token validation failed',
+      );
+      if (
+        error &&
+        typeof error === 'object' &&
+        'name' in error &&
+        (error.name === 'JsonWebTokenError' || error.name === 'TokenExpiredError')
+      ) {
+        throw new UnauthorizedException('Invalid refresh token');
+      }
+      throw error;
     }
   }
 }

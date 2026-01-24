@@ -1,6 +1,7 @@
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../../../prisma/prisma.service';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class UsersRepository {
@@ -34,7 +35,7 @@ export class UsersRepository {
 
   async update(id: number, data: UpdateUserDto) {
     try {
-      return this.prisma.user.update({
+      return await this.prisma.user.update({
         where: { id },
         data,
         select: {
@@ -46,7 +47,13 @@ export class UsersRepository {
         },
       });
     } catch (error) {
-      throw new NotFoundException('User not found');
-    }    
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
+        throw new NotFoundException('User not found');
+      }
+      throw error;
+    }
   }
 }

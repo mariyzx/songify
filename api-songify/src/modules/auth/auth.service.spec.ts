@@ -3,6 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ConflictException, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import { Logger } from 'nestjs-pino';
 import { AuthService } from './auth.service';
 import { PrismaService } from '../../prisma/prisma.service';
 import { RegisterDto } from './dto/register.dto';
@@ -15,7 +16,18 @@ describe('AuthService', () => {
   let jwtService: JwtService;
   let configService: ConfigService;
 
+  const findFirstMock = jest.fn();
+  const findUniqueMock = jest.fn();
+  const createMock = jest.fn();
+  const updateMock = jest.fn();
+  const signMock = jest.fn().mockReturnValue('mock-access-token');
+  const signAsyncMock = jest.fn().mockResolvedValue('mock-refresh-token');
+  const verifyMock = jest.fn();
+
   beforeEach(async () => {
+    jest.clearAllMocks();
+    signMock.mockReturnValue('mock-access-token');
+    signAsyncMock.mockResolvedValue('mock-refresh-token');
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AuthService,
@@ -23,15 +35,19 @@ describe('AuthService', () => {
           provide: PrismaService,
           useValue: {
             user: {
-              findUnique: jest.fn(),
-              create: jest.fn(),
+              findFirst: findFirstMock,
+              findUnique: findUniqueMock,
+              create: createMock,
+              update: updateMock,
             },
           },
         },
         {
           provide: JwtService,
           useValue: {
-            sign: jest.fn(),
+            sign: signMock,
+            signAsync: signAsyncMock,
+            verify: verifyMock,
           },
         },
         {
@@ -40,9 +56,15 @@ describe('AuthService', () => {
             get: jest.fn((key: string) => {
               if (key === 'JWT_SECRET') return 'test-secret';
               if (key === 'JWT_EXPIRES_IN') return '1d';
+              if (key === 'JWT_REFRESH_SECRET') return 'test-refresh-secret';
+              if (key === 'JWT_REFRESH_EXPIRES_IN') return '7d';
               return null;
             }),
           },
+        },
+        {
+          provide: Logger,
+          useValue: { warn: jest.fn(), log: jest.fn(), error: jest.fn() },
         },
       ],
     }).compile();
@@ -67,8 +89,8 @@ describe('AuthService', () => {
 
       const hashedPassword = await bcrypt.hash(registerDto.password, 10);
 
-      (prismaService.user.findUnique as jest.Mock).mockResolvedValue(null);
-      (prismaService.user.create as jest.Mock).mockResolvedValue({
+      findFirstMock.mockResolvedValue(null);
+      createMock.mockResolvedValue({
         id: 1,
         email: registerDto.email,
         name: registerDto.name,
@@ -81,10 +103,10 @@ describe('AuthService', () => {
       expect(result).toBeDefined();
       expect(result.email).toBe(registerDto.email);
       expect(result.name).toBe(registerDto.name);
-      expect(prismaService.user.findUnique).toHaveBeenCalledWith({
-        where: { email: registerDto.email },
+      expect(findFirstMock).toHaveBeenCalledWith({
+        where: { email: registerDto.email, deletedAt: null },
       });
-      expect(prismaService.user.create).toHaveBeenCalled();
+      expect(createMock).toHaveBeenCalled();
     });
 
     it('should throw ConflictException if user already exists', async () => {
@@ -94,7 +116,7 @@ describe('AuthService', () => {
         password: 'password123',
       };
 
-      (prismaService.user.findUnique as jest.Mock).mockResolvedValue({
+      findFirstMock.mockResolvedValue({
         id: 1,
         email: registerDto.email,
       });
@@ -102,7 +124,7 @@ describe('AuthService', () => {
       await expect(service.register(registerDto)).rejects.toThrow(
         ConflictException,
       );
-      expect(prismaService.user.create).not.toHaveBeenCalled();
+      expect(createMock).not.toHaveBeenCalled();
     });
   });
 
@@ -117,26 +139,36 @@ describe('AuthService', () => {
       const mockUser = {
         id: 1,
         email: loginDto.email,
+        name: 'Test User',
         password: hashedPassword,
+        description: null,
+        favoriteSongs: [],
       };
 
-      (prismaService.user.findUnique as jest.Mock)
-        .mockResolvedValueOnce(mockUser)
-        .mockResolvedValueOnce({
-          id: 1,
-          email: loginDto.email,
-          name: 'Test User',
-          description: null,
-          favoriteSongs: [],
-        });
-
-      (jwtService.sign as jest.Mock).mockReturnValue('mock-token');
+      findFirstMock.mockResolvedValue(mockUser);
+      updateMock.mockResolvedValue(undefined);
 
       const result = await service.login(loginDto);
 
       expect(result).toBeDefined();
-      expect(result.token).toBe('mock-token');
-      expect(jwtService.sign).toHaveBeenCalled();
+      expect(result.accessToken).toBe('mock-access-token');
+      expect(result.refreshToken).toBe('mock-refresh-token');
+      expect(result.id).toBe(1);
+      expect(result.email).toBe(loginDto.email);
+      expect(result.name).toBe('Test User');
+      expect(result).not.toHaveProperty('password');
+      expect(findFirstMock).toHaveBeenCalledWith({
+        where: { email: loginDto.email, deletedAt: null },
+        select: {
+          id: true,
+          email: true,
+          name: true,
+          password: true,
+          description: true,
+          favoriteSongs: true,
+        },
+      });
+      expect(updateMock).toHaveBeenCalled();
     });
 
     it('should throw UnauthorizedException with invalid email', async () => {
@@ -145,7 +177,7 @@ describe('AuthService', () => {
         password: 'password123',
       };
 
-      (prismaService.user.findUnique as jest.Mock).mockResolvedValue(null);
+      findFirstMock.mockResolvedValue(null);
 
       await expect(service.login(loginDto)).rejects.toThrow(
         UnauthorizedException,
@@ -159,15 +191,41 @@ describe('AuthService', () => {
       };
 
       const hashedPassword = await bcrypt.hash('correctpassword', 10);
-      (prismaService.user.findUnique as jest.Mock).mockResolvedValue({
+      findFirstMock.mockResolvedValue({
         id: 1,
         email: loginDto.email,
+        name: 'Test User',
         password: hashedPassword,
+        description: null,
+        favoriteSongs: [],
       });
 
       await expect(service.login(loginDto)).rejects.toThrow(
         UnauthorizedException,
       );
+      expect(updateMock).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('refreshToken', () => {
+    it('should return new accessToken for valid refresh token', async () => {
+      const refreshToken = 'valid-refresh-token';
+      const mockUser = {
+        id: 1,
+        email: 'test@example.com',
+        refreshToken,
+      };
+
+      verifyMock.mockReturnValue({ sub: 1, type: 'refresh' });
+      findUniqueMock.mockResolvedValue(mockUser);
+      signMock.mockReturnValue('new-access-token');
+
+      const result = await service.refreshToken(refreshToken);
+
+      expect(result).toEqual({ accessToken: 'new-access-token' });
+      expect(findUniqueMock).toHaveBeenCalledWith({
+        where: { id: 1 },
+      });
     });
   });
 });

@@ -13,6 +13,7 @@ import { FavoritesService } from './favorites.service';
 import { AddFavoriteDto } from './dto/add-favorite.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
+import type { CurrentUser as CurrentUserType } from '../../common/types/current-user.interface';
 
 @ApiTags('favorites')
 @ApiBearerAuth()
@@ -24,7 +25,7 @@ export class FavoritesController {
   @Post()
   @ApiOperation({ summary: 'Adicionar músicas aos favoritos' })
   addToFavorites(
-    @CurrentUser() user: any,
+    @CurrentUser() user: CurrentUserType,
     @Body() addFavoriteDto: AddFavoriteDto,
   ) {
     return this.favoritesService.addToFavorites(user.id, addFavoriteDto);
@@ -32,15 +33,15 @@ export class FavoritesController {
 
   @Get()
   @ApiOperation({ summary: 'Listar músicas favoritas' })
-  getFavorites(@CurrentUser() user: any) {
+  getFavorites(@CurrentUser() user: CurrentUserType) {
     return this.favoritesService.getFavorites(user.id);
   }
 
   @Delete(':songId')
   @ApiOperation({ summary: 'Remover música dos favoritos' })
   removeFavorite(
-    @CurrentUser() user: any,
-    @Param('songId', ParseIntPipe) songId: number, // Por quê ParseIntPipe? Converte string para number automaticamente
+    @CurrentUser() user: CurrentUserType,
+    @Param('songId', ParseIntPipe) songId: number,
   ) {
     return this.favoritesService.removeFavorite(user.id, songId);
   }

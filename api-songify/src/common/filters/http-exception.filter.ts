@@ -8,6 +8,7 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { Logger } from 'nestjs-pino';
+import { randomUUID } from 'node:crypto';
 
 @Catch()
 @Injectable()
@@ -28,7 +29,8 @@ export class HttpExceptionFilter implements ExceptionFilter {
         ? exception.getResponse()
         : 'Internal server error';
 
-    const requestId = request.id;
+    const requestId =
+      (request as Request & { id?: string }).id ?? randomUUID();
     const method = request.method;
     const path = request.originalUrl;
     const logPayload = {
@@ -48,21 +50,25 @@ export class HttpExceptionFilter implements ExceptionFilter {
         },
         'Unhandled server error',
       );
-    } if (status >= 400) {
-      this.logger.warn(
-        logPayload,
-        'Client error',
-      );
+    } else if (status >= 400) {
+      this.logger.warn(logPayload, 'Client error');
     } else {
       this.logger.debug(logPayload);
     }
+
+    const raw =
+      typeof message === 'string' ? message : (message as { message?: unknown }).message;
+    const normalizedMessage = Array.isArray(raw) ? raw.join('; ') : raw;
 
     response.status(status).json({
       statusCode: status,
       timestamp: new Date().toISOString(),
       path,
       requestId,
-      message: typeof message === 'string' ? message : (message as any).message,
+      message:
+        typeof normalizedMessage === 'string'
+          ? normalizedMessage
+          : 'Internal server error',
     });
   }
 }
