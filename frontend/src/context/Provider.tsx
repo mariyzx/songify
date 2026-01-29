@@ -39,7 +39,7 @@ function Provider({ children }: any) {
   const createUser = (data: IUser): void => {
     const info = { ...emptyUser, ...data };
     api
-      .post('register', data)
+      .post('auth/register', data)
       .then((res) => {
         setStatusCode('OK');
         const { password: _, ...userWithoutPass } = info;
@@ -52,7 +52,7 @@ function Provider({ children }: any) {
 
   const login = async (data: IUser): Promise<ILogin> => {
     try {
-      const response = await api.post('login', data);
+      const response = await api.post('auth/login', data);
       setStatusCode('');
       setUser(response.data);
       localStorage.setItem('token', JSON.stringify(response.data.token));

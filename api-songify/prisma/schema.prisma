@@ -6,24 +6,38 @@ datasource db {
   provider = "mysql"
 }
 
-model User {
-  id            Int             @id @default(autoincrement())
+model user {
+  id_user       Int       @id @default(autoincrement())
   name          String
-  email         String          @unique
+  email         String    @unique
   password      String
   description   String?
-  favoriteSongs Songs[]  @relation(name: "Favorite_Songs")
-  refreshToken  String?
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-  deletedAt     DateTime?
+  refresh_token String?
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+  deleted_at    DateTime?
+
+  favorite_songs favorite_songs[]
 }
 
-model Songs {
-  id      Int     @id @default(autoincrement())
-  title   String
-  artist  String
-  previewUrl String
-  album   String
-  users   User[]  @relation(name: "Favorite_Songs")
+model songs {
+  id_song     Int    @id @default(autoincrement())
+  title       String
+  artist      String
+  preview_url String
+  album       String
+
+  favorite_songs favorite_songs[]
+}
+
+model favorite_songs {
+  id_favorite_songs Int @id @default(autoincrement())
+  id_user           Int
+  id_song           Int
+
+  user  user  @relation(fields: [id_user], references: [id_user])
+  songs songs @relation(fields: [id_song], references: [id_song])
+
+  @@unique([id_user, id_song])
+  @@map("favorite_songs")
 }
