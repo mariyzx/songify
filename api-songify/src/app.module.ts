@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { validate } from './config/env.validation';
-import { PrismaModule } from './prisma/prisma.module';
+import { PrismaModule } from './shared/prisma/prisma.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
 import { FavoritesModule } from './modules/favorites/favorites.module';
@@ -12,6 +12,7 @@ import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { LoggerModule } from 'nestjs-pino';
 import { randomUUID } from 'node:crypto';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
+import { MusicModule } from './modules/music/music.module';
 
 @Module({
   imports: [
@@ -36,15 +37,16 @@ import { HttpExceptionFilter } from './common/filters/http-exception.filter';
         transport:
           process.env.NODE_ENV !== 'production'
             ? {
-                target: 'pino-pretty',
-                options: {
-                  colorize: true,
-                  translateTime: 'SYS:standard',
-                },
-              }
+              target: 'pino-pretty',
+              options: {
+                colorize: true,
+                translateTime: 'SYS:standard',
+              },
+            }
             : undefined,
       },
     }),
+    MusicModule,
   ],
   controllers: [AppController],
   providers: [
@@ -59,4 +61,4 @@ import { HttpExceptionFilter } from './common/filters/http-exception.filter';
     }
   ],
 })
-export class AppModule {}
+export class AppModule { }

@@ -2,7 +2,7 @@ import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/co
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Logger } from 'nestjs-pino';
-import { PrismaService } from '../../prisma/prisma.service';
+import { PrismaService } from '../../shared/prisma/prisma.service';
 import { RegisterDto } from './dto/register.dto';
 import * as bcrypt from 'bcryptjs';
 import { LoginDto } from './dto/login.dto';
@@ -14,7 +14,7 @@ export class AuthService {
     private jwtService: JwtService,
     private configService: ConfigService,
     private readonly logger: Logger,
-  ) {}
+  ) { }
 
   async generateRefreshToken(userId: number): Promise<string> {
     const payload = { sub: userId, type: 'refresh' };

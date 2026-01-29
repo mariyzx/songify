@@ -1,11 +1,11 @@
-import { PrismaService } from '../../../prisma/prisma.service';
+import { PrismaService } from '../../../shared/prisma/prisma.service';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class UsersRepository {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async findById(id: number) {
     return this.prisma.user.findUnique({

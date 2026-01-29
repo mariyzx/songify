@@ -12,17 +12,15 @@ export class PrismaService
 
     const url = new URL(databaseUrl);
 
-    // Criar adapter MariaDB com os parâmetros parseados
     const adapter = new PrismaMariaDb({
       host: url.hostname,
       port: parseInt(url.port) || 3306,
       user: url.username,
       password: url.password,
-      database: url.pathname.slice(1), // Remove a barra inicial
+      database: url.pathname.slice(1),
       connectionLimit: 10,
     });
 
-    // Passar adapter para o PrismaClient
     super({ adapter });
   }
 

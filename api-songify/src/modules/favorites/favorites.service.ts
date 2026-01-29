@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '../../prisma/prisma.service';
+import { PrismaService } from '../../shared/prisma/prisma.service';
 import { AddFavoriteDto } from './dto/add-favorite.dto';
 
 @Injectable()
 export class FavoritesService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async addToFavorites(userId: number, addFavoriteDto: AddFavoriteDto) {
     const { songs } = addFavoriteDto;
